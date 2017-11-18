@@ -1,0 +1,232 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+0	elm-package.json	/^        "src\/elm"$/;"	s	array:source-directories
+BillCommissions	src/elm/Data/EventBill.elm	/^type alias BillCommissions =$/;"	a
+BillOptions	src/elm/Data/EventBill.elm	/^type alias BillOptions =$/;"	a
+BillOptionsDetails	src/elm/Data/EventBill.elm	/^type alias BillOptionsDetails =$/;"	a
+BillOrderDetail	src/elm/Data/EventBill.elm	/^type alias BillOrderDetail =$/;"	a
+BillOrderDetails	src/elm/Data/EventBill.elm	/^type alias BillOrderDetails =$/;"	a
+BillOrders	src/elm/Data/EventBill.elm	/^type alias BillOrders =$/;"	a
+BillOrdersPayments	src/elm/Data/EventBill.elm	/^type alias BillOrdersPayments =$/;"	a
+BillTotal	src/elm/Data/EventBill.elm	/^type alias BillTotal =$/;"	a
+CancelConfig	src/elm/Views/Order.elm	/^type alias CancelConfig msg =$/;"	a
+Config	src/elm/Search.elm	/^type alias Config msg =$/;"	a
+Config	src/elm/Views/Event.elm	/^type alias Config msg =$/;"	a
+Config	src/elm/Views/EventBill.elm	/^type alias Config msg =$/;"	a
+Config	src/elm/Views/Order.elm	/^type alias Config msg =$/;"	a
+Config	src/elm/Views/Organizer.elm	/^type alias Config msg =$/;"	a
+Dialog	src/elm/Main.elm	/^type Dialog$/;"	t
+Elm	src/static/index.js	/^var Elm = require( '..\/elm\/Main' );$/;"	v
+EndPoints	src/elm/Main.elm	/^type alias EndPoints =$/;"	a
+Event	src/elm/Data/Event.elm	/^type alias Event =$/;"	a
+EventBill	src/elm/Data/EventBill.elm	/^type alias EventBill =$/;"	a
+EventBillSendResult	src/elm/Data/EventBill.elm	/^type alias EventBillSendResult =$/;"	a
+EventId	src/elm/Data/Event.elm	/^type alias EventId =$/;"	a
+Events	src/elm/Data/Event.elm	/^type alias Events =$/;"	a
+Filter	src/elm/Data/Filters.elm	/^type alias Filter =$/;"	a
+FilterValue	src/elm/Data/Filters.elm	/^type alias FilterValue =$/;"	a
+Main	src/Main.elm	/^module Main exposing (..)$/;"	m
+Main.elm	src/Main.elm	1;"	F
+Model	src/elm/Main.elm	/^type alias Model =$/;"	a
+Model	src/elm/Pages/Dialog.elm	/^type alias Model =$/;"	a
+Model	src/elm/Pages/Event.elm	/^type alias Model =$/;"	a
+Model	src/elm/Pages/Events.elm	/^type alias Model =$/;"	a
+Model	src/elm/Pages/Orders.elm	/^type alias Model =$/;"	a
+Model	src/elm/Pages/Organizer.elm	/^type alias Model =$/;"	a
+Model	src/elm/Pages/Organizers.elm	/^type alias Model =$/;"	a
+Msg	src/elm/Main.elm	/^type Msg$/;"	t
+Order	src/elm/Data/Order.elm	/^type alias Order =$/;"	a
+OrderStatus	src/elm/Data/Order.elm	/^type OrderStatus$/;"	t
+Orders	src/elm/Data/Order.elm	/^type alias Orders =$/;"	a
+Organizer	src/elm/Data/Organizer.elm	/^type alias Organizer =$/;"	a
+Organizers	src/elm/Data/Organizer.elm	/^type alias Organizers =$/;"	a
+Page	src/elm/Main.elm	/^type Page$/;"	t
+Query	src/elm/Data/Filters.elm	/^type alias Query =$/;"	a
+Query	src/elm/Search.elm	/^type alias Query =$/;"	a
+Responsibility	src/elm/Data/Order.elm	/^type Responsibility$/;"	t
+SelectedFilter	src/elm/Data/Filters.elm	/^type alias SelectedFilter =$/;"	a
+TableView	src/elm/Main.elm	/^type TableView$/;"	t
+Truc	src/elm/Data/EventBill.elm	/^type alias Truc =$/;"	a
+actionsColumn	src/elm/Views/Event.elm	/^actionsColumn : String -> Config msg -> Table.Column Event msg$/;"	f
+actionsColumn	src/elm/Views/Order.elm	/^actionsColumn : String -> Config msg -> Table.Column Order msg$/;"	f
+actionsColumn	src/elm/Views/Organizer.elm	/^actionsColumn : String -> Config msg -> Table.Column Organizer msg$/;"	f
+author	package.json	/^  "author": "Augustin Ragon",$/;"	s
+billCommissionsDecoder	src/elm/Data/EventBill.elm	/^billCommissionsDecoder : D.Decoder BillCommissions$/;"	c
+billOptionsDecoder	src/elm/Data/EventBill.elm	/^billOptionsDecoder : D.Decoder BillOptions$/;"	c
+billOptionsDetailsDecoder	src/elm/Data/EventBill.elm	/^billOptionsDetailsDecoder : D.Decoder BillOptionsDetails$/;"	c
+billOptionsTotalDecoder	src/elm/Data/EventBill.elm	/^billOptionsTotalDecoder : D.Decoder Truc$/;"	c
+billOrderDetailDecoder	src/elm/Data/EventBill.elm	/^billOrderDetailDecoder : D.Decoder BillOrderDetail$/;"	c
+billOrdersDecoder	src/elm/Data/EventBill.elm	/^billOrdersDecoder : D.Decoder BillOrders$/;"	c
+billOrdersPaymentsDecoder	src/elm/Data/EventBill.elm	/^billOrdersPaymentsDecoder : D.Decoder BillOrdersPayments$/;"	c
+billPage	src/elm/Main.elm	/^billPage : Model -> List (Html Msg)$/;"	f
+billTotalDecoder	src/elm/Data/EventBill.elm	/^billTotalDecoder : D.Decoder BillTotal$/;"	c
+black	src/elm/Utils.elm	/^black : String$/;"	c
+build	package.json	/^    "build": "rimraf dist && webpack",$/;"	s	object:scripts
+cancelDialog	src/elm/Views/Order.elm	/^cancelDialog : CancelConfig msg -> Model -> Order -> Html msg$/;"	f
+cancelDialogBody	src/elm/Views/Order.elm	/^cancelDialogBody : (String -> msg) -> Model -> Order -> Html msg$/;"	f
+cancelDialogFooter	src/elm/Views/Order.elm	/^cancelDialogFooter : (Order -> Responsibility -> msg) -> msg -> Order -> Html msg$/;"	f
+cancelDialogHeader	src/elm/Views/Order.elm	/^cancelDialogHeader : Order -> Html msg$/;"	f
+cancelError	src/elm/Views/Order.elm	/^cancelError : Model -> Html msg$/;"	f
+cancelOrder	src/elm/Requests/Order.elm	/^cancelOrder : Model -> Order -> Responsibility -> Cmd Msg$/;"	f
+cancelOrderEndpoint	src/elm/Requests/Order.elm	/^cancelOrderEndpoint : EndPoints -> Order -> String$/;"	f
+centsToEurosString	src/elm/Utils.elm	/^centsToEurosString : Int -> String$/;"	f
+cleaninstall	package.json	/^    "cleaninstall": "yarn add rimraf && rimraf node_modules elm-stuff && yarn install && yarn el/;"	s	object:scripts
+clickableRow	src/elm/Views/Event.elm	/^clickableRow : Config msg -> Event -> List (Attribute msg)$/;"	f
+clickableRow	src/elm/Views/Organizer.elm	/^clickableRow : Config msg -> Organizer -> List (Attribute msg)$/;"	f
+colNumber	src/elm/Views/EventBill.elm	/^colNumber : Int$/;"	c
+copy-webpack-plugin	package.json	/^    "copy-webpack-plugin": "^4.0.1",$/;"	s	object:devDependencies
+defaultQuery	src/elm/Data/Filters.elm	/^defaultQuery : Query$/;"	c
+dependencies	elm-package.json	/^    "dependencies": {$/;"	o
+description	package.json	/^  "description": "LSF Alphabet Quizz",$/;"	s
+devDependencies	package.json	/^  "devDependencies": {$/;"	o
+downloadBillUrl	src/elm/Views/EventBill.elm	/^downloadBillUrl : EventBill -> String$/;"	f
+elm	package.json	/^    "elm": "^0.18.0",$/;"	s	object:devDependencies
+elm-hot-loader	package.json	/^    "elm-hot-loader": "^0.5.4",$/;"	s	object:devDependencies
+elm-lang/core	elm-package.json	/^        "elm-lang\/core": "5.0.0 <= v < 6.0.0",$/;"	s	object:dependencies
+elm-lang/html	elm-package.json	/^       "elm-lang\/html": "2.0.0 <= v < 3.0.0"$/;"	s	object:dependencies
+elm-package.json	elm-package.json	1;"	F
+elm-version	elm-package.json	/^    "elm-version": "0.18.0 <= v < 0.19.0"$/;"	s
+elm-webpack-loader	package.json	/^    "elm-webpack-loader": "^4.1.1",$/;"	s	object:devDependencies
+elm:install	package.json	/^    "elm:install": "elm-package install --yes",$/;"	s	object:scripts
+elm:reinstall	package.json	/^    "elm:reinstall": "rm -rf elm-stuff\/; yarn elm:install",$/;"	s	object:scripts
+emptyButton	src/elm/Search.elm	/^emptyButton : Html msg$/;"	c
+emptyDiv	src/elm/Utils.elm	/^emptyDiv : Html msg$/;"	c
+emptyString	src/elm/Utils.elm	/^emptyString : a -> String$/;"	f
+encodeFilter	src/elm/Requests/Organizer.elm	/^encodeFilter : SelectedFilter -> ( String, Encode.Value )$/;"	f
+encodeFilter	src/elm/Utils.elm	/^encodeFilter : SelectedFilter -> ( String, Encode.Value )$/;"	f
+epochToDate	src/elm/Utils.elm	/^epochToDate : Float -> Date.Date$/;"	f
+eventBillConfig	src/elm/Main.elm	/^eventBillConfig : EventBill.Config Msg$/;"	c
+eventBillDecoder	src/elm/Data/EventBill.elm	/^eventBillDecoder : D.Decoder EventBill$/;"	c
+eventBillEndpoint	src/elm/Requests/EventBill.elm	/^eventBillEndpoint : EndPoints -> String -> String$/;"	f
+eventBillSendDecoder	src/elm/Data/EventBill.elm	/^eventBillSendDecoder : D.Decoder EventBillSendResult$/;"	c
+eventBillSendEndpoint	src/elm/Requests/EventBill.elm	/^eventBillSendEndpoint : EndPoints -> String -> String$/;"	f
+eventDecoder	src/elm/Data/Event.elm	/^eventDecoder : D.Decoder Event$/;"	c
+eventEndpoint	src/elm/Requests/Event.elm	/^eventEndpoint : EndPoints -> String -> String$/;"	f
+eventPage	src/elm/Main.elm	/^eventPage : Model -> List (Html Msg)$/;"	f
+eventsConfig	src/elm/Main.elm	/^eventsConfig : Events.Config Msg$/;"	c
+eventsCustomization	src/elm/Views/Event.elm	/^eventsCustomization : Config msg -> Table.Customizations Event msg$/;"	f
+eventsDecoder	src/elm/Data/Event.elm	/^eventsDecoder : D.Decoder Events$/;"	c
+eventsEndpoint	src/elm/Requests/Event.elm	/^eventsEndpoint : EndPoints -> String$/;"	f
+eventsFilters	src/elm/Main.elm	/^eventsFilters : List Filter$/;"	c
+eventsPage	src/elm/Main.elm	/^eventsPage : Model -> List (Html Msg)$/;"	f
+eventsSearchConfig	src/elm/Main.elm	/^eventsSearchConfig : Search.Config Msg$/;"	c
+eventsSearchTools	src/elm/Main.elm	/^eventsSearchTools : Model -> Html Msg$/;"	f
+eventsTableConfig	src/elm/Views/Event.elm	/^eventsTableConfig : Config msg -> Table.Config Event msg$/;"	f
+exposed-modules	elm-package.json	/^    "exposed-modules": [],$/;"	a
+extract-text-webpack-plugin	package.json	/^    "extract-text-webpack-plugin": "^1.0.1",$/;"	s	object:devDependencies
+fetchEvent	src/elm/Requests/Event.elm	/^fetchEvent : Model -> String -> Cmd Msg$/;"	f
+fetchEventBill	src/elm/Requests/EventBill.elm	/^fetchEventBill : Model -> Cmd Msg$/;"	f
+fetchOrganizer	src/elm/Requests/Organizer.elm	/^fetchOrganizer : Model -> String -> Cmd Msg$/;"	f
+fetchOrganizers	src/elm/Requests/Organizer.elm	/^fetchOrganizers : Model -> Cmd Msg$/;"	f
+file-loader	package.json	/^    "file-loader": "^0.9.0",$/;"	s	object:devDependencies
+filterEventsBy	src/elm/Main.elm	/^filterEventsBy : Query -> Events -> Events$/;"	f
+filterOrgasBy	src/elm/Main.elm	/^filterOrgasBy : Query -> Organizers -> Organizers$/;"	f
+goBackLink	src/elm/Utils.elm	/^goBackLink : msg -> Html msg$/;"	f
+hiddenPage	src/elm/Main.elm	/^hiddenPage : Model -> Page -> String$/;"	f
+html-webpack-plugin	package.json	/^    "html-webpack-plugin": "^2.17.0",$/;"	s	object:devDependencies
+init	src/elm/Main.elm	/^init : EndPoints -> ( Model, Cmd Msg )$/;"	f
+initCmd	src/elm/Main.elm	/^initCmd : List (Cmd Msg)$/;"	c
+initModel	src/elm/Main.elm	/^initModel : EndPoints -> Model$/;"	f
+isSelected	src/elm/Main.elm	/^isSelected : Model -> Page -> Bool$/;"	f
+jquery	package.json	/^    "jquery": "^3.1.0",$/;"	s	object:devDependencies
+license	elm-package.json	/^    "license": "MIT",$/;"	s
+license	package.json	/^  "license": "ISC",$/;"	s
+linkButton	src/elm/Utils.elm	/^linkButton : String -> String -> String -> Html msg$/;"	f
+main	src/Main.elm	/^main =$/;"	f
+main	src/elm/Main.elm	/^main : Program EndPoints Model Msg$/;"	c
+name	package.json	/^  "name": "lsf-quizz",$/;"	s
+orderDecoder	src/elm/Data/Order.elm	/^orderDecoder : D.Decoder Order$/;"	c
+orderEndpoint	src/elm/Requests/Order.elm	/^orderEndpoint : EndPoints -> String -> String$/;"	f
+orderStatusDecoder	src/elm/Data/Order.elm	/^orderStatusDecoder : D.Decoder OrderStatus$/;"	c
+orderStatusFromString	src/elm/Data/Order.elm	/^orderStatusFromString : String -> OrderStatus$/;"	f
+orderStatusToString	src/elm/Data/Order.elm	/^orderStatusToString : OrderStatus -> String$/;"	f
+ordersConfig	src/elm/Main.elm	/^ordersConfig : Orders.Config Msg$/;"	c
+ordersDecoder	src/elm/Data/Order.elm	/^ordersDecoder : D.Decoder Orders$/;"	c
+ordersEndpoint	src/elm/Requests/Order.elm	/^ordersEndpoint : EndPoints -> String$/;"	f
+ordersFilters	src/elm/Main.elm	/^ordersFilters : List Filter$/;"	c
+ordersList	src/elm/Main.elm	/^ordersList : Model -> Html Msg$/;"	f
+ordersPage	src/elm/Main.elm	/^ordersPage : Model -> List (Html Msg)$/;"	f
+ordersSearchConfig	src/elm/Main.elm	/^ordersSearchConfig : Search.Config Msg$/;"	c
+ordersSearchTools	src/elm/Main.elm	/^ordersSearchTools : Model -> Html Msg$/;"	f
+ordersTableConfig	src/elm/Views/Order.elm	/^ordersTableConfig : Config msg -> Table.Config Order msg$/;"	f
+organizerDecoder	src/elm/Data/Organizer.elm	/^organizerDecoder : D.Decoder Organizer$/;"	c
+organizerEndpoint	src/elm/Requests/Organizer.elm	/^organizerEndpoint : EndPoints -> String -> String$/;"	f
+organizerPage	src/elm/Main.elm	/^organizerPage : Model -> List (Html Msg)$/;"	f
+organizersConfig	src/elm/Main.elm	/^organizersConfig : Organizers.Config Msg$/;"	c
+organizersCustomization	src/elm/Views/Organizer.elm	/^organizersCustomization : Config msg -> Table.Customizations Organizer msg$/;"	f
+organizersDecoder	src/elm/Data/Organizer.elm	/^organizersDecoder : D.Decoder Organizers$/;"	c
+organizersEndpoint	src/elm/Requests/Organizer.elm	/^organizersEndpoint : EndPoints -> String$/;"	f
+organizersFilters	src/elm/Main.elm	/^organizersFilters : List Filter$/;"	c
+organizersPage	src/elm/Main.elm	/^organizersPage : Model -> List (Html Msg)$/;"	f
+organizersSearchConfig	src/elm/Main.elm	/^organizersSearchConfig : Search.Config Msg$/;"	c
+organizersSearchTools	src/elm/Main.elm	/^organizersSearchTools : Model -> Html Msg$/;"	f
+organizersTableConfig	src/elm/Views/Organizer.elm	/^organizersTableConfig : Config msg -> Table.Config Organizer msg$/;"	f
+package.json	package.json	1;"	F
+pageToString	src/elm/Main.elm	/^pageToString : Model -> Page -> String$/;"	f
+plum	src/elm/Utils.elm	/^plum : String$/;"	c
+postinstall	package.json	/^    "postinstall": "yarn elm:install; mv node_modules\/.bin\/elm-make node_modules\/.bin\/elm-ma/;"	s	object:scripts
+preinstall	package.json	/^    "preinstall": "rm -rf node_modules\/",$/;"	s	object:scripts
+reinstall	package.json	/^    "reinstall": "npm i rimraf && rimraf node_modules && npm uninstall -g elm && npm i -g elm &&/;"	s	object:scripts
+repository	elm-package.json	/^    "repository": "https:\/\/github.com\/moarwick\/elm-webpack-starter.git",$/;"	s
+resetDialogInfo	src/elm/Main.elm	/^resetDialogInfo : Model -> Dialog -> Model$/;"	f
+resetOrdersQuery	src/elm/Main.elm	/^resetOrdersQuery : Model -> ( Model, Cmd Msg )$/;"	f
+responsibilityToString	src/elm/Data/Order.elm	/^responsibilityToString : Responsibility -> String$/;"	f
+rimraf	package.json	/^    "rimraf": "^2.6.1",$/;"	s	object:devDependencies
+scripts	package.json	/^  "scripts": {$/;"	o
+searchBox	src/elm/Search.elm	/^searchBox : Config msg -> Query -> Html msg$/;"	f
+sendEventBill	src/elm/Requests/EventBill.elm	/^sendEventBill : Model -> Cmd Msg$/;"	f
+sortByLegalPrivileged	src/elm/Views/EventBill.elm	/^sortByLegalPrivileged : BillOrderDetails -> BillOrderDetails$/;"	f
+source-directories	elm-package.json	/^    "source-directories": [$/;"	a
+spacer	src/elm/Main.elm	/^spacer : Html Msg$/;"	c
+spacerRow	src/elm/Utils.elm	/^spacerRow : Html msg$/;"	c
+start	package.json	/^    "start": "webpack-dev-server --hot --inline --port 3002",$/;"	s	object:scripts
+subscriptions	src/elm/Main.elm	/^subscriptions : Model -> Sub Msg$/;"	f
+summary	elm-package.json	/^    "summary": "Example using `elm-webpack-loader`.",$/;"	s
+tabActive	src/elm/Main.elm	/^tabActive : Model -> Page -> String$/;"	f
+tableCustomizations	src/elm/Utils.elm	/^tableCustomizations : Table.Customizations data msg$/;"	c
+titleRow	src/elm/Views/EventBill.elm	/^titleRow : String -> String -> Html msg$/;"	f
+totalRow	src/elm/Views/EventBill.elm	/^totalRow : String -> String -> Html msg$/;"	f
+update	src/elm/Main.elm	/^update : Msg -> Model -> ( Model, Cmd Msg )$/;"	f
+updateCancellation	src/elm/Main.elm	/^updateCancellation : WebData String -> Model -> ( Model, Cmd Msg )$/;"	f
+updateDate	src/elm/Main.elm	/^updateDate : Cmd Msg$/;"	c
+updateFilter	src/elm/Data/Filters.elm	/^updateFilter : String -> String -> SelectedFilter -> SelectedFilter$/;"	f
+updateFilters	src/elm/Data/Filters.elm	/^updateFilters : String -> String -> List SelectedFilter -> List SelectedFilter$/;"	f
+updateModelForTableView	src/elm/Main.elm	/^updateModelForTableView : Model -> TableView -> Table.State -> Model$/;"	f
+updateQuery	src/elm/Data/Filters.elm	/^updateQuery : String -> String -> Query -> Query$/;"	f
+url-loader	package.json	/^    "url-loader": "^0.5.7",$/;"	s	object:devDependencies
+version	elm-package.json	/^    "version": "1.0.0",$/;"	s
+version	package.json	/^  "version": "0.0.1",$/;"	s
+view	src/elm/Main.elm	/^view : Model -> Html Msg$/;"	f
+view	src/elm/Views/Event.elm	/^view : Config msg -> Table.State -> Events -> Html msg$/;"	f
+viewCancelResult	src/elm/Main.elm	/^viewCancelResult : Model -> Html Msg$/;"	f
+viewCollected	src/elm/Views/EventBill.elm	/^viewCollected : EventBill -> Html msg$/;"	f
+viewCommission	src/elm/Views/EventBill.elm	/^viewCommission : EventBill -> Html msg$/;"	f
+viewDataFetch	src/elm/Main.elm	/^viewDataFetch : Model -> Html Msg$/;"	f
+viewDetails	src/elm/Views/EventBill.elm	/^viewDetails : EventBill -> Html msg$/;"	f
+viewDetailsLine	src/elm/Views/EventBill.elm	/^viewDetailsLine : BillOrderDetail -> Html msg$/;"	f
+viewDialog	src/elm/Main.elm	/^viewDialog : Model -> Html Msg$/;"	f
+viewEvent	src/elm/Views/Event.elm	/^viewEvent : Config msg -> Event -> Html msg$/;"	f
+viewEventBill	src/elm/Views/EventBill.elm	/^viewEventBill : Config msg -> EventBill -> List (Html msg)$/;"	f
+viewEventRow	src/elm/Views/Event.elm	/^viewEventRow : (String -> msg) -> Event -> Html msg$/;"	f
+viewFilter	src/elm/Main.elm	/^viewFilter : (String -> String -> Msg) -> List SelectedFilter -> Filter -> Html Msg$/;"	f
+viewFilters	src/elm/Main.elm	/^viewFilters : (String -> String -> Msg) -> List SelectedFilter -> List Filter -> Html Msg$/;"	f
+viewLayout	src/elm/Main.elm	/^viewLayout : Model -> Page -> (Model -> List (Html Msg)) -> Html Msg$/;"	f
+viewLegalMentions	src/elm/Views/EventBill.elm	/^viewLegalMentions : Html msg$/;"	c
+viewNavigation	src/elm/Main.elm	/^viewNavigation : Model -> Html Msg$/;"	f
+viewOption	src/elm/Main.elm	/^viewOption : FilterValue -> Html Msg$/;"	f
+viewOrdersTable	src/elm/Views/Order.elm	/^viewOrdersTable : Config msg -> Table.State -> Orders -> Html msg$/;"	f
+viewOrganizer	src/elm/Views/Organizer.elm	/^viewOrganizer : Config msg -> Organizer -> Html msg$/;"	f
+viewOrganizers	src/elm/Views/Organizer.elm	/^viewOrganizers : Config msg -> Table.State -> Organizers -> Html msg$/;"	f
+viewOtherServices	src/elm/Views/EventBill.elm	/^viewOtherServices : EventBill -> Html msg$/;"	f
+viewPage	src/elm/Main.elm	/^viewPage : Model -> Html Msg$/;"	f
+viewSummary	src/elm/Views/EventBill.elm	/^viewSummary : EventBill -> Html msg$/;"	f
+viewTab	src/elm/Main.elm	/^viewTab : Model -> Page -> Html Msg$/;"	f
+warnBalance	src/elm/Views/Event.elm	/^warnBalance : Event -> String$/;"	f
+webpack	package.json	/^    "webpack": "^1.13.1",$/;"	s	object:devDependencies
+webpack-dev-server	package.json	/^    "webpack-dev-server": "^1.14.1",$/;"	s	object:devDependencies
+webpack-merge	package.json	/^    "webpack-merge": "^2.4.0"$/;"	s	object:devDependencies
+webpack.config.js	webpack.config.js	1;"	F

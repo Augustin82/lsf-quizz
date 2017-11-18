@@ -1,0 +1,32 @@
+{
+  "name": "lsf-quizz",
+  "description": "LSF Alphabet Quizz",
+  "version": "0.0.1",
+  "author": "Augustin Ragon",
+  "license": "ISC",
+  "scripts": {
+    "start": "webpack-dev-server --hot --inline --port 3002",
+    "build": "rimraf dist && webpack",
+    "elm:install": "elm-package install --yes",
+    "elm:reinstall": "rm -rf elm-stuff/; yarn elm:install",
+    "preinstall": "rm -rf node_modules/",
+    "postinstall": "yarn elm:install; mv node_modules/.bin/elm-make node_modules/.bin/elm-make-original; cp elm-make node_modules/.bin/",
+    "cleaninstall": "yarn add rimraf && rimraf node_modules elm-stuff && yarn install && yarn elm:install",
+    "reinstall": "npm i rimraf && rimraf node_modules && npm uninstall -g elm && npm i -g elm && npm i && elm package install"
+  },
+  "devDependencies": {
+    "copy-webpack-plugin": "^4.0.1",
+    "elm": "^0.18.0",
+    "elm-hot-loader": "^0.5.4",
+    "elm-webpack-loader": "^4.1.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.17.0",
+    "jquery": "^3.1.0",
+    "rimraf": "^2.6.1",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.13.1",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-merge": "^2.4.0"
+  }
+}

@@ -1,0 +1,7 @@
+#/bin/bash
+# echo "Running elm-make with sysconfcpus -n 1"
+if ! type "sysconfcpus" > /dev/null; then
+  yarn run --silent elm-make-original "$@"
+else
+  sysconfcpus -n 1 yarn run --silent elm-make-original "$@"
+fi
