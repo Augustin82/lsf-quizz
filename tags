@@ -22,6 +22,7 @@ Config	src/elm/Views/Order.elm	/^type alias Config msg =$/;"	a
 Config	src/elm/Views/Organizer.elm	/^type alias Config msg =$/;"	a
 Default	src/elm/Main.elm	/^    = Default$/;"	c	type:Styles
 EK	src/elm/Main.elm	/^import Element.Keyed as EK$/;"	n
+Elem	src/elm/Main.elm	/^type alias Elem =$/;"	a
 Elm	src/static/index.js	/^var Elm = require( '..\/elm\/Main' );$/;"	v
 Event	src/elm/Data/Event.elm	/^type alias Event =$/;"	a
 EventBill	src/elm/Data/EventBill.elm	/^type alias EventBill =$/;"	a
@@ -47,6 +48,7 @@ Model	src/elm/Pages/Organizer.elm	/^type alias Model =$/;"	a
 Model	src/elm/Pages/Organizers.elm	/^type alias Model =$/;"	a
 Msg	src/elm/Main.elm	/^type Msg$/;"	t
 NoOp	src/elm/Main.elm	/^    = NoOp$/;"	c	type:Msg
+None	src/elm/Main.elm	/^    = None$/;"	c	type:Variations
 Order	src/elm/Data/Order.elm	/^type alias Order =$/;"	a
 OrderStatus	src/elm/Data/Order.elm	/^type OrderStatus$/;"	t
 Orders	src/elm/Data/Order.elm	/^type alias Orders =$/;"	a
@@ -62,6 +64,7 @@ Tick Time	src/elm/Main.elm	/^    | Tick Time$/;"	c	type:Msg
 Today Time	src/elm/Main.elm	/^    | Today Time$/;"	c	type:Msg
 Truc	src/elm/Data/EventBill.elm	/^type alias Truc =$/;"	a
 Url	src/elm/Main.elm	/^type alias Url =$/;"	a
+Variations	src/elm/Main.elm	/^type Variations$/;"	t
 actionsColumn	src/elm/Views/Event.elm	/^actionsColumn : String -> Config msg -> Table.Column Event msg$/;"	f
 actionsColumn	src/elm/Views/Order.elm	/^actionsColumn : String -> Config msg -> Table.Column Order msg$/;"	f
 actionsColumn	src/elm/Views/Organizer.elm	/^actionsColumn : String -> Config msg -> Table.Column Organizer msg$/;"	f

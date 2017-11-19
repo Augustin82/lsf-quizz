@@ -1,6 +1,6 @@
 module Main exposing (..)
 
-import Html
+import Html exposing (Html)
 import Element exposing (..)
 import Element.Attributes exposing (..)
 import Element.Events exposing (..)
@@ -34,15 +34,18 @@ type alias Letters =
     Dict String Letter
 
 
+emptyLetter : Letter
 emptyLetter =
     { name = "", description = "", sign = "" }
 
 
+lettersDict : Dict String Letter
 lettersDict =
     Dict.fromList <|
         lettersList
 
 
+lettersList : List ( String, Letter )
 lettersList =
     [ ( "A", { name = "A", sign = "/static/img/a.jpg", description = "" } )
     , ( "B", { name = "B", sign = "/static/img/b.jpg", description = "" } )
@@ -85,6 +88,15 @@ type Styles
     = Default
 
 
+type Variations
+    = None
+
+
+type alias Elem =
+    Element Styles Variations Msg
+
+
+stylesheet : StyleSheet Styles Variations
 stylesheet =
     styleSheet [ style Default [] ]
 
@@ -102,6 +114,7 @@ type alias Model =
     }
 
 
+main : Program Never Model Msg
 main =
     Html.program
         { init = init
@@ -175,6 +188,7 @@ update msg model =
             { model | time = time, seed = Random.initialSeed <| round model.time } ! [ Task.perform identity <| Task.succeed GenerateQuestion ]
 
 
+view : Model -> Html Msg
 view ({ currentLetter, choices } as model) =
     viewport stylesheet <|
         el Default [] <|
@@ -186,6 +200,7 @@ view ({ currentLetter, choices } as model) =
                 ]
 
 
+viewResult : Model -> Elem
 viewResult { result, answered, correct } =
     case result of
         Nothing ->
@@ -212,11 +227,13 @@ viewResult { result, answered, correct } =
                         ]
 
 
+imageForLetter : Letter -> Elem
 imageForLetter { sign, description } =
     el Default [ center ] <|
         image Default [ width (px 100), height (px 100) ] { src = sign, caption = description }
 
 
+answers : List String -> Elem
 answers choices =
     el Default [ center ] <|
         row Default [ spacing 10 ] <|
@@ -224,6 +241,7 @@ answers choices =
                 choices
 
 
+viewChoice : String -> Elem
 viewChoice choice =
     button Default [ padding 10, onClick <| Answer choice ] <| text <| String.toLower <| choice
 
@@ -244,11 +262,13 @@ init =
     )
 
 
+subs : Model -> Sub Msg
 subs model =
     -- Time.every Time.second Tick
     Sub.none
 
 
+getNow : Cmd Msg
 getNow =
     Time.now
         |> Task.perform Today
