@@ -9,6 +9,9 @@ import Style exposing (..)
 import Style.Font as Font
 import Style.Scale as Scale
 import Style.Border as Border
+import Style.Transition as Transition
+import Style.Color as SC
+import Color
 import Dict exposing (Dict)
 import Random exposing (Seed)
 import Time exposing (Time)
@@ -33,10 +36,11 @@ type alias Model =
     , mode : Mode
     , seed : Seed
     , time : Time
-    , result : Maybe Bool
+    , result : Result
     , answered : Int
     , correct : Int
     , state : State
+    , counter : Int
     }
 
 
@@ -62,13 +66,21 @@ type Mode
 type State
     = Home
     | Question
-    | Result
+    | Score
+
+
+type Result
+    = Correct
+    | Incorrect
+    | Timeout
+    | NotAnswered
 
 
 type Styles
     = Default
     | Main
     | Button
+    | Bar
 
 
 type Variations
@@ -101,7 +113,45 @@ update msg model =
             model ! []
 
         Tick time ->
-            model ! []
+            case model.state of
+                Question ->
+                    let
+                        newCount =
+                            model.counter - 1
+
+                        timeout =
+                            model.counter < 0
+
+                        answered =
+                            model.answered
+                                + (if timeout then
+                                    10
+                                   else
+                                    0
+                                  )
+
+                        result =
+                            if timeout then
+                                Timeout
+                            else
+                                model.result
+
+                        state =
+                            if timeout then
+                                Score
+                            else
+                                model.state
+                    in
+                        { model
+                            | state = state
+                            , counter = newCount
+                            , answered = answered
+                            , result = result
+                        }
+                            ! []
+
+                _ ->
+                    model ! []
 
         GenerateQuestion ->
             let
@@ -140,32 +190,38 @@ update msg model =
                         |> Random.List.shuffle
                         |> (flip Random.step) s4
             in
-                { model | seed = s5, currentLetter = currentLetter |> (flip Dict.get) lettersDict |> Maybe.withDefault emptyLetter, choices = choices, result = Nothing, state = Question } ! []
+                { model | seed = s5, currentLetter = currentLetter |> (flip Dict.get) lettersDict |> Maybe.withDefault emptyLetter, choices = choices, result = NotAnswered, state = Question, counter = 10 } ! []
 
         Answer userChoice ->
             let
-                result =
+                match =
                     userChoice == model.currentLetter.name
 
+                result =
+                    if match then
+                        Correct
+                    else
+                        Incorrect
+
                 answered =
-                    model.answered + 1
+                    model.answered + 10
 
                 correct =
                     model.correct
-                        + (if result then
-                            1
+                        + (if match then
+                            model.counter
                            else
                             0
                           )
             in
-                { model | userChoice = userChoice, result = Just <| result, answered = answered, correct = correct, state = Result } ! []
+                { model | userChoice = userChoice, result = result, answered = answered, correct = correct, state = Score } ! []
 
         Today time ->
             { model | time = time, seed = Random.initialSeed <| round model.time } ! [ Task.perform identity <| Task.succeed GenerateQuestion ]
 
 
 view : Model -> Html Msg
-view ({ currentLetter, choices, state } as model) =
+view ({ currentLetter, choices, state, counter } as model) =
     viewport stylesheet <|
         el Main [ height fill, width fill ] <|
             case state of
@@ -182,32 +238,46 @@ view ({ currentLetter, choices, state } as model) =
                     EK.column Default
                         [ verticalSpread, height fill, width fill, paddingTop 10 ]
                         [ ( currentLetter.sign, imageForLetter currentLetter )
+                        , ( currentLetter.sign ++ "progressBar", progressBar counter )
                         , ( currentLetter.sign ++ "choice", answers choices )
                         ]
 
-                Result ->
+                Score ->
                     EK.column Default
                         [ verticalSpread, height fill, width fill, paddingTop 10 ]
                         [ ( currentLetter.sign, imageForLetter currentLetter )
-                        , ( currentLetter.sign ++ "result", viewResult model )
+                        , ( currentLetter.sign ++ "result", viewScore model )
                         ]
 
 
-viewResult : Model -> Elem
-viewResult { result, answered, correct, currentLetter } =
+progressBar : Int -> Elem
+progressBar counter =
+    el Default [ width (percent 100) ] <|
+        el Bar [ width <| percent <| toFloat <| counter * 10 ] <|
+            text " "
+
+
+viewScore : Model -> Elem
+viewScore { result, answered, correct, currentLetter } =
     case result of
-        Nothing ->
+        NotAnswered ->
             empty
 
-        Just result ->
+        _ ->
             let
                 comment =
                     case result of
-                        True ->
-                            "Bravo !!!"
+                        Correct ->
+                            "Vrai !"
 
-                        False ->
-                            "Perdu =("
+                        Incorrect ->
+                            "Faux !"
+
+                        Timeout ->
+                            "Plus de temps !"
+
+                        NotAnswered ->
+                            ""
             in
                 el Default [ center, width fill ] <|
                     column Default
@@ -258,9 +328,10 @@ init =
       , choices = []
       , seed = Random.initialSeed 0
       , time = 0
-      , result = Nothing
+      , result = NotAnswered
       , answered = 0
       , correct = 0
+      , counter = 0
       }
     , getNow
     )
@@ -268,8 +339,14 @@ init =
 
 subs : Model -> Sub Msg
 subs model =
-    -- Time.every Time.second Tick
-    Sub.none
+    if model.state == Question then
+        Time.every Time.second Tick
+    else
+        Sub.none
+
+
+
+-- Sub.none
 
 
 getNow : Cmd Msg
@@ -341,5 +418,9 @@ stylesheet =
             , variation Bottom [ Border.bottom 1 ]
             , variation Right [ Border.right 1 ]
             , variation Left [ Border.left 1 ]
+            ]
+        , style Bar
+            [ SC.background Color.blue
+            , Transition.transitions [ { delay = 0, duration = 1000, easing = "linear", props = [ "width" ] } ]
             ]
         ]
