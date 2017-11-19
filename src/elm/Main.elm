@@ -207,15 +207,16 @@ viewResult { result, answered, correct, currentLetter } =
                             "Bravo !!!"
 
                         False ->
-                            "Perdu : c'était " ++ currentLetter.name
+                            "Perdu =("
             in
-                el Default [ center ] <|
+                el Default [ center, width fill ] <|
                     column Default
                         [ spacing 10 ]
-                        [ button Default [ padding 10, onClick GenerateQuestion ] <| text "Suivant >>"
-                        , el Default [] <|
+                        [ el Default [ center ] <| text <| "--> " ++ currentLetter.name ++ " <--"
+                        , el Default [ center ] <|
                             text comment
-                        , el Default [] <| text <| "Score : " ++ toString correct ++ "/" ++ toString answered
+                        , el Default [ center ] <| text <| "Score : " ++ toString correct ++ "/" ++ toString answered
+                        , button Default [ padding 10, onClick GenerateQuestion ] <| text "Suivant >>"
                         ]
 
 
