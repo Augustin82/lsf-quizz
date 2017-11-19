@@ -75,7 +75,9 @@ type Variations
     = None
     | Larger
     | Top
+    | Bottom
     | Right
+    | Left
 
 
 type alias Elem =
@@ -178,21 +180,21 @@ view ({ currentLetter, choices, state } as model) =
 
                 Question ->
                     EK.column Default
-                        [ verticalSpread, height fill, width fill ]
+                        [ verticalSpread, height fill, width fill, paddingTop 10 ]
                         [ ( currentLetter.sign, imageForLetter currentLetter )
                         , ( currentLetter.sign ++ "choice", answers choices )
                         ]
 
                 Result ->
                     EK.column Default
-                        [ verticalSpread, height fill, width fill ]
+                        [ verticalSpread, height fill, width fill, paddingTop 10 ]
                         [ ( currentLetter.sign, imageForLetter currentLetter )
                         , ( currentLetter.sign ++ "result", viewResult model )
                         ]
 
 
 viewResult : Model -> Elem
-viewResult { result, answered, correct } =
+viewResult { result, answered, correct, currentLetter } =
     case result of
         Nothing ->
             empty
@@ -205,7 +207,7 @@ viewResult { result, answered, correct } =
                             "Bravo !!!"
 
                         False ->
-                            "Perdu..."
+                            "Perdu : c'était " ++ currentLetter.name
             in
                 el Default [ center ] <|
                     column Default
@@ -240,6 +242,7 @@ viewChoice index choice =
         , vary Larger True
         , vary Top True
         , vary Right (rem index 2 == 0)
+        , vary Bottom (index > 1)
         ]
     <|
         text (choice)
@@ -287,32 +290,32 @@ lettersDict =
 
 lettersList : List ( String, Letter )
 lettersList =
-    [ ( "A", { name = "A", sign = "/static/img/a.jpg", description = "" } )
-    , ( "B", { name = "B", sign = "/static/img/b.jpg", description = "" } )
-    , ( "C", { name = "C", sign = "/static/img/c.jpg", description = "" } )
-    , ( "D", { name = "D", sign = "/static/img/d.jpg", description = "" } )
-    , ( "E", { name = "E", sign = "/static/img/e.jpg", description = "" } )
-    , ( "F", { name = "F", sign = "/static/img/f.jpg", description = "" } )
-    , ( "G", { name = "G", sign = "/static/img/g.jpg", description = "" } )
-    , ( "H", { name = "H", sign = "/static/img/h.jpg", description = "" } )
-    , ( "I", { name = "I", sign = "/static/img/i.jpg", description = "" } )
-    , ( "J", { name = "J", sign = "/static/img/j.jpg", description = "" } )
-    , ( "K", { name = "K", sign = "/static/img/k.jpg", description = "" } )
-    , ( "L", { name = "L", sign = "/static/img/l.jpg", description = "" } )
-    , ( "M", { name = "M", sign = "/static/img/m.jpg", description = "" } )
-    , ( "N", { name = "N", sign = "/static/img/n.jpg", description = "" } )
-    , ( "O", { name = "O", sign = "/static/img/o.jpg", description = "" } )
-    , ( "P", { name = "P", sign = "/static/img/p.jpg", description = "" } )
-    , ( "Q", { name = "Q", sign = "/static/img/q.jpg", description = "" } )
-    , ( "R", { name = "R", sign = "/static/img/r.jpg", description = "" } )
-    , ( "S", { name = "S", sign = "/static/img/s.jpg", description = "" } )
-    , ( "T", { name = "T", sign = "/static/img/t.jpg", description = "" } )
-    , ( "U", { name = "U", sign = "/static/img/u.jpg", description = "" } )
-    , ( "V", { name = "V", sign = "/static/img/v.jpg", description = "" } )
-    , ( "W", { name = "W", sign = "/static/img/w.jpg", description = "" } )
-    , ( "X", { name = "X", sign = "/static/img/x.jpg", description = "" } )
-    , ( "Y", { name = "Y", sign = "/static/img/y.jpg", description = "" } )
-    , ( "Z", { name = "Z", sign = "/static/img/z.jpg", description = "" } )
+    [ ( "A", { name = "A", sign = "/static/img/hd/a.png", description = "" } )
+    , ( "B", { name = "B", sign = "/static/img/hd/b.png", description = "" } )
+    , ( "C", { name = "C", sign = "/static/img/hd/c.png", description = "" } )
+    , ( "D", { name = "D", sign = "/static/img/hd/d.png", description = "" } )
+    , ( "E", { name = "E", sign = "/static/img/hd/e.png", description = "" } )
+    , ( "F", { name = "F", sign = "/static/img/hd/f.png", description = "" } )
+    , ( "G", { name = "G", sign = "/static/img/hd/g.png", description = "" } )
+    , ( "H", { name = "H", sign = "/static/img/hd/h.png", description = "" } )
+    , ( "I", { name = "I", sign = "/static/img/hd/i.png", description = "" } )
+    , ( "J", { name = "J", sign = "/static/img/hd/j.png", description = "" } )
+    , ( "K", { name = "K", sign = "/static/img/hd/k.png", description = "" } )
+    , ( "L", { name = "L", sign = "/static/img/hd/l.png", description = "" } )
+    , ( "M", { name = "M", sign = "/static/img/hd/m.png", description = "" } )
+    , ( "N", { name = "N", sign = "/static/img/hd/n.png", description = "" } )
+    , ( "O", { name = "O", sign = "/static/img/hd/o.png", description = "" } )
+    , ( "P", { name = "P", sign = "/static/img/hd/p.png", description = "" } )
+    , ( "Q", { name = "Q", sign = "/static/img/hd/q.png", description = "" } )
+    , ( "R", { name = "R", sign = "/static/img/hd/r.png", description = "" } )
+    , ( "S", { name = "S", sign = "/static/img/hd/s.png", description = "" } )
+    , ( "T", { name = "T", sign = "/static/img/hd/t.png", description = "" } )
+    , ( "U", { name = "U", sign = "/static/img/hd/u.png", description = "" } )
+    , ( "V", { name = "V", sign = "/static/img/hd/v.png", description = "" } )
+    , ( "W", { name = "W", sign = "/static/img/hd/w.png", description = "" } )
+    , ( "X", { name = "X", sign = "/static/img/hd/x.png", description = "" } )
+    , ( "Y", { name = "Y", sign = "/static/img/hd/y.png", description = "" } )
+    , ( "Z", { name = "Z", sign = "/static/img/hd/z.png", description = "" } )
     ]
 
 
@@ -334,6 +337,8 @@ stylesheet =
             [ variation Larger [ Font.size (scaled 4) ]
             , Border.solid
             , variation Top [ Border.top 1 ]
+            , variation Bottom [ Border.bottom 1 ]
             , variation Right [ Border.right 1 ]
+            , variation Left [ Border.left 1 ]
             ]
         ]

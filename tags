@@ -15,6 +15,7 @@ BillOrders	src/elm/Data/EventBill.elm	/^type alias BillOrders =$/;"	a
 BillOrdersPayments	src/elm/Data/EventBill.elm	/^type alias BillOrdersPayments =$/;"	a
 BillTotal	src/elm/Data/EventBill.elm	/^type alias BillTotal =$/;"	a
 Border	src/elm/Main.elm	/^import Style.Border as Border$/;"	n
+Bottom	src/elm/Main.elm	/^    | Bottom$/;"	c	type:Variations
 Button	src/elm/Main.elm	/^    | Button$/;"	c	type:Styles
 CancelConfig	src/elm/Views/Order.elm	/^type alias CancelConfig msg =$/;"	a
 Config	src/elm/Search.elm	/^type alias Config msg =$/;"	a
@@ -37,6 +38,7 @@ Font	src/elm/Main.elm	/^import Style.Font as Font$/;"	n
 GenerateQuestion	src/elm/Main.elm	/^    | GenerateQuestion$/;"	c	type:Msg
 Home	src/elm/Main.elm	/^    = Home$/;"	c	type:State
 Larger	src/elm/Main.elm	/^    | Larger$/;"	c	type:Variations
+Left	src/elm/Main.elm	/^    | Left$/;"	c	type:Variations
 Letter	src/elm/Main.elm	/^type alias Letter =$/;"	a
 Letters	src/elm/Main.elm	/^type alias Letters =$/;"	a
 Main	src/Main.elm	/^module Main exposing (..)$/;"	m
@@ -192,7 +194,7 @@ sendEventBill	src/elm/Requests/EventBill.elm	/^sendEventBill : Model -> Cmd Msg$
 sortByLegalPrivileged	src/elm/Views/EventBill.elm	/^sortByLegalPrivileged : BillOrderDetails -> BillOrderDetails$/;"	f
 source-directories	elm-package.json	/^    "source-directories": [$/;"	a
 spacerRow	src/elm/Utils.elm	/^spacerRow : Html msg$/;"	c
-start	package.json	/^    "start": "webpack-dev-server --hot --inline --port 3002",$/;"	s	object:scripts
+start	package.json	/^    "start": "webpack-dev-server --hot --inline --host 0.0.0.0 --public 192.168.1.90:3002 --port/;"	s	object:scripts
 stylesheet	src/elm/Main.elm	/^stylesheet =$/;"	f
 subs	src/elm/Main.elm	/^subs model =$/;"	f
 summary	elm-package.json	/^    "summary": "Example using `elm-webpack-loader`.",$/;"	s
@@ -221,7 +223,7 @@ viewOrdersTable	src/elm/Views/Order.elm	/^viewOrdersTable : Config msg -> Table.
 viewOrganizer	src/elm/Views/Organizer.elm	/^viewOrganizer : Config msg -> Organizer -> Html msg$/;"	f
 viewOrganizers	src/elm/Views/Organizer.elm	/^viewOrganizers : Config msg -> Table.State -> Organizers -> Html msg$/;"	f
 viewOtherServices	src/elm/Views/EventBill.elm	/^viewOtherServices : EventBill -> Html msg$/;"	f
-viewResult	src/elm/Main.elm	/^viewResult { result, answered, correct } =$/;"	f
+viewResult	src/elm/Main.elm	/^viewResult { result, answered, correct, currentLetter } =$/;"	f
 viewSummary	src/elm/Views/EventBill.elm	/^viewSummary : EventBill -> Html msg$/;"	f
 warnBalance	src/elm/Views/Event.elm	/^warnBalance : Event -> String$/;"	f
 webpack	package.json	/^    "webpack": "^1.13.1",$/;"	s	object:devDependencies

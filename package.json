@@ -5,7 +5,7 @@
   "author": "Augustin Ragon",
   "license": "ISC",
   "scripts": {
-    "start": "webpack-dev-server --hot --inline --port 3002",
+    "start": "webpack-dev-server --hot --inline --host 0.0.0.0 --public 192.168.1.90:3002 --port 3002",
     "build": "rimraf dist && webpack",
     "elm:install": "elm-package install --yes",
     "elm:reinstall": "rm -rf elm-stuff/; yarn elm:install",
