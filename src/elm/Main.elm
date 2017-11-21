@@ -18,7 +18,7 @@ import Time exposing (Time)
 import Task
 import Random
 import Random.List
-import Tuple
+import Assets exposing (..)
 
 
 type Msg
@@ -368,33 +368,38 @@ lettersDict =
 
 lettersList : List ( String, Letter )
 lettersList =
-    [ ( "A", { name = "A", sign = "/static/img/hd/a.png", description = "" } )
-    , ( "B", { name = "B", sign = "/static/img/hd/b.png", description = "" } )
-    , ( "C", { name = "C", sign = "/static/img/hd/c.png", description = "" } )
-    , ( "D", { name = "D", sign = "/static/img/hd/d.png", description = "" } )
-    , ( "E", { name = "E", sign = "/static/img/hd/e.png", description = "" } )
-    , ( "F", { name = "F", sign = "/static/img/hd/f.png", description = "" } )
-    , ( "G", { name = "G", sign = "/static/img/hd/g.png", description = "" } )
-    , ( "H", { name = "H", sign = "/static/img/hd/h.png", description = "" } )
-    , ( "I", { name = "I", sign = "/static/img/hd/i.png", description = "" } )
-    , ( "J", { name = "J", sign = "/static/img/hd/j.png", description = "" } )
-    , ( "K", { name = "K", sign = "/static/img/hd/k.png", description = "" } )
-    , ( "L", { name = "L", sign = "/static/img/hd/l.png", description = "" } )
-    , ( "M", { name = "M", sign = "/static/img/hd/m.png", description = "" } )
-    , ( "N", { name = "N", sign = "/static/img/hd/n.png", description = "" } )
-    , ( "O", { name = "O", sign = "/static/img/hd/o.png", description = "" } )
-    , ( "P", { name = "P", sign = "/static/img/hd/p.png", description = "" } )
-    , ( "Q", { name = "Q", sign = "/static/img/hd/q.png", description = "" } )
-    , ( "R", { name = "R", sign = "/static/img/hd/r.png", description = "" } )
-    , ( "S", { name = "S", sign = "/static/img/hd/s.png", description = "" } )
-    , ( "T", { name = "T", sign = "/static/img/hd/t.png", description = "" } )
-    , ( "U", { name = "U", sign = "/static/img/hd/u.png", description = "" } )
-    , ( "V", { name = "V", sign = "/static/img/hd/v.png", description = "" } )
-    , ( "W", { name = "W", sign = "/static/img/hd/w.png", description = "" } )
-    , ( "X", { name = "X", sign = "/static/img/hd/x.png", description = "" } )
-    , ( "Y", { name = "Y", sign = "/static/img/hd/y.png", description = "" } )
-    , ( "Z", { name = "Z", sign = "/static/img/hd/z.png", description = "" } )
+    [ ( "A", { name = "A", sign = path letterA, description = "" } )
+    , ( "B", { name = "B", sign = path letterB, description = "" } )
+    , ( "C", { name = "C", sign = path letterC, description = "" } )
+    , ( "D", { name = "D", sign = path letterD, description = "" } )
+    , ( "E", { name = "E", sign = path letterE, description = "" } )
+    , ( "F", { name = "F", sign = path letterF, description = "" } )
+    , ( "G", { name = "G", sign = path letterG, description = "" } )
+    , ( "H", { name = "H", sign = path letterH, description = "" } )
+    , ( "I", { name = "I", sign = path letterI, description = "" } )
+    , ( "J", { name = "J", sign = path letterJ, description = "" } )
+    , ( "K", { name = "K", sign = path letterK, description = "" } )
+    , ( "L", { name = "L", sign = path letterL, description = "" } )
+    , ( "M", { name = "M", sign = path letterM, description = "" } )
+    , ( "N", { name = "N", sign = path letterN, description = "" } )
+    , ( "O", { name = "O", sign = path letterO, description = "" } )
+    , ( "P", { name = "P", sign = path letterP, description = "" } )
+    , ( "Q", { name = "Q", sign = path letterQ, description = "" } )
+    , ( "R", { name = "R", sign = path letterR, description = "" } )
+    , ( "S", { name = "S", sign = path letterS, description = "" } )
+    , ( "T", { name = "T", sign = path letterT, description = "" } )
+    , ( "U", { name = "U", sign = path letterU, description = "" } )
+    , ( "V", { name = "V", sign = path letterV, description = "" } )
+    , ( "W", { name = "W", sign = path letterW, description = "" } )
+    , ( "X", { name = "X", sign = path letterX, description = "" } )
+    , ( "Y", { name = "Y", sign = path letterY, description = "" } )
+    , ( "Z", { name = "Z", sign = path letterZ, description = "" } )
     ]
+
+
+path : Asset -> String
+path (Asset str) =
+    str
 
 
 scaled : Int -> Float

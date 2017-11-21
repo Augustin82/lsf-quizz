@@ -15,18 +15,20 @@
     "reinstall": "npm i rimraf && rimraf node_modules && npm uninstall -g elm && npm i -g elm && npm i && elm package install"
   },
   "devDependencies": {
+    "babel-core": "^6.26.0",
     "copy-webpack-plugin": "^4.0.1",
     "elm": "^0.18.0",
     "elm-hot-loader": "^0.5.4",
-    "elm-webpack-loader": "^4.1.1",
-    "extract-text-webpack-plugin": "^1.0.1",
-    "file-loader": "^0.9.0",
+    "elm-webpack-loader": "^4.4.0",
+    "eslint": "^4.3.0",
+    "eslint_d": "^5.0.0",
+    "glob": "^5.0.14",
     "html-webpack-plugin": "^2.17.0",
-    "jquery": "^3.1.0",
-    "rimraf": "^2.6.1",
-    "url-loader": "^0.5.7",
-    "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1",
-    "webpack-merge": "^2.4.0"
+    "prettier": "^1.5.3",
+    "rimraf": "^2.6.2",
+    "url-loader": "^0.6.2",
+    "webpack": "^3.8.1",
+    "webpack-dev-server": "^2.9.4",
+    "webpack-merge": "^4.1.1"
   }
 }

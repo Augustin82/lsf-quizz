@@ -5,7 +5,18 @@
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.9~svn20110310	//
 0	elm-package.json	/^        "src\/elm"$/;"	s	array:source-directories
+0	node_modules/elm-assets-loader/package.json	/^    "LICENSE",$/;"	s	array:files
+0	node_modules/elm-assets-loader/package.json	/^    "webpack",$/;"	s	array:keywords
+1	node_modules/elm-assets-loader/package.json	/^    "README.md",$/;"	s	array:files
+1	node_modules/elm-assets-loader/package.json	/^    "loader",$/;"	s	array:keywords
+2	node_modules/elm-assets-loader/package.json	/^    "elm",$/;"	s	array:keywords
+2	node_modules/elm-assets-loader/package.json	/^    "index.js"$/;"	s	array:files
+3	node_modules/elm-assets-loader/package.json	/^    "assets"$/;"	s	array:keywords
 Answer String	src/elm/Main.elm	/^    | Answer String$/;"	c	type:Msg
+Asset	src/elm/Assets.elm	/^type Asset$/;"	t
+Asset String	src/elm/Assets.elm	/^    = Asset String$/;"	c	type:Asset
+Assets	src/elm/Assets.elm	/^module Assets exposing (..)$/;"	m
+Assets.elm	src/elm/Assets.elm	1;"	F
 Bar	src/elm/Main.elm	/^    | Bar$/;"	c	type:Styles
 BillCommissions	src/elm/Data/EventBill.elm	/^type alias BillCommissions =$/;"	a
 BillOptions	src/elm/Data/EventBill.elm	/^type alias BillOptions =$/;"	a
@@ -28,7 +39,6 @@ Correct	src/elm/Main.elm	/^    = Correct$/;"	c	type:Result
 Default	src/elm/Main.elm	/^    = Default$/;"	c	type:Styles
 EK	src/elm/Main.elm	/^import Element.Keyed as EK$/;"	n
 Elem	src/elm/Main.elm	/^type alias Elem =$/;"	a
-Elm	src/static/index.js	/^var Elm = require( '..\/elm\/Main' );$/;"	v
 Event	src/elm/Data/Event.elm	/^type alias Event =$/;"	a
 EventBill	src/elm/Data/EventBill.elm	/^type alias EventBill =$/;"	a
 EventBillSendResult	src/elm/Data/EventBill.elm	/^type alias EventBillSendResult =$/;"	a
@@ -93,7 +103,11 @@ actionsColumn	src/elm/Views/Organizer.elm	/^actionsColumn : String -> Config msg
 answered	src/elm/Main.elm	/^                        answered =$/;"	f	function:update
 answered	src/elm/Main.elm	/^                answered =$/;"	f	function:update
 answers	src/elm/Main.elm	/^answers choices =$/;"	f
+author	node_modules/elm-assets-loader/package.json	/^  "author": "Marica Odagaki <marica@noredink.com>",$/;"	s
 author	package.json	/^  "author": "Augustin Ragon",$/;"	s
+ava	node_modules/elm-assets-loader/package.json	/^    "ava": "^0.19.0",$/;"	s	object:devDependencies
+babel-core	node_modules/elm-assets-loader/package.json	/^    "babel-core": "^6.18.2",$/;"	s	object:peerDependencies
+babel-core	package.json	/^    "babel-core": "^6.26.0",$/;"	s	object:devDependencies
 billCommissionsDecoder	src/elm/Data/EventBill.elm	/^billCommissionsDecoder : D.Decoder BillCommissions$/;"	c
 billOptionsDecoder	src/elm/Data/EventBill.elm	/^billOptionsDecoder : D.Decoder BillOptions$/;"	c
 billOptionsDetailsDecoder	src/elm/Data/EventBill.elm	/^billOptionsDetailsDecoder : D.Decoder BillOptionsDetails$/;"	c
@@ -103,6 +117,7 @@ billOrdersDecoder	src/elm/Data/EventBill.elm	/^billOrdersDecoder : D.Decoder Bil
 billOrdersPaymentsDecoder	src/elm/Data/EventBill.elm	/^billOrdersPaymentsDecoder : D.Decoder BillOrdersPayments$/;"	c
 billTotalDecoder	src/elm/Data/EventBill.elm	/^billTotalDecoder : D.Decoder BillTotal$/;"	c
 black	src/elm/Utils.elm	/^black : String$/;"	c
+bugs	node_modules/elm-assets-loader/package.json	/^  "bugs": {$/;"	o
 build	package.json	/^    "build": "rimraf dist && webpack",$/;"	s	object:scripts
 cancelDialog	src/elm/Views/Order.elm	/^cancelDialog : CancelConfig msg -> Model -> Order -> Html msg$/;"	f
 cancelDialogBody	src/elm/Views/Order.elm	/^cancelDialogBody : (String -> msg) -> Model -> Order -> Html msg$/;"	f
@@ -121,16 +136,22 @@ copy-webpack-plugin	package.json	/^    "copy-webpack-plugin": "^4.0.1",$/;"	s	ob
 correct	src/elm/Main.elm	/^                correct =$/;"	f	function:update
 defaultQuery	src/elm/Data/Filters.elm	/^defaultQuery : Query$/;"	c
 dependencies	elm-package.json	/^    "dependencies": {$/;"	o
+dependencies	node_modules/elm-assets-loader/package.json	/^  "dependencies": {$/;"	o
+description	node_modules/elm-assets-loader/package.json	/^  "description": "webpack loader for webpackifying asset references in Elm code",$/;"	s
 description	package.json	/^  "description": "LSF Alphabet Quizz",$/;"	s
+devDependencies	node_modules/elm-assets-loader/package.json	/^  "devDependencies": {$/;"	o
 devDependencies	package.json	/^  "devDependencies": {$/;"	o
 downloadBillUrl	src/elm/Views/EventBill.elm	/^downloadBillUrl : EventBill -> String$/;"	f
+elm	node_modules/elm-assets-loader/package.json	/^    "elm": "0.17.1 - 0.18.0",$/;"	s	object:devDependencies
 elm	package.json	/^    "elm": "^0.18.0",$/;"	s	object:devDependencies
+elm-assets-loader	package.json	/^    "elm-assets-loader": "^0.3.0",$/;"	s	object:devDependencies
 elm-hot-loader	package.json	/^    "elm-hot-loader": "^0.5.4",$/;"	s	object:devDependencies
 elm-lang/core	elm-package.json	/^        "elm-lang\/core": "5.0.0 <= v < 6.0.0",$/;"	s	object:dependencies
 elm-lang/html	elm-package.json	/^       "elm-lang\/html": "2.0.0 <= v < 3.0.0"$/;"	s	object:dependencies
 elm-package.json	elm-package.json	1;"	F
 elm-version	elm-package.json	/^    "elm-version": "0.18.0 <= v < 0.19.0"$/;"	s
-elm-webpack-loader	package.json	/^    "elm-webpack-loader": "^4.1.1",$/;"	s	object:devDependencies
+elm-webpack-loader	node_modules/elm-assets-loader/package.json	/^    "elm-webpack-loader": "^3.0.6",$/;"	s	object:devDependencies
+elm-webpack-loader	package.json	/^    "elm-webpack-loader": "^4.4.0",$/;"	s	object:devDependencies
 elm:install	package.json	/^    "elm:install": "elm-package install --yes",$/;"	s	object:scripts
 elm:reinstall	package.json	/^    "elm:reinstall": "rm -rf elm-stuff\/; yarn elm:install",$/;"	s	object:scripts
 emptyButton	src/elm/Search.elm	/^emptyButton : Html msg$/;"	c
@@ -140,6 +161,8 @@ emptyString	src/elm/Utils.elm	/^emptyString : a -> String$/;"	f
 encodeFilter	src/elm/Requests/Organizer.elm	/^encodeFilter : SelectedFilter -> ( String, Encode.Value )$/;"	f
 encodeFilter	src/elm/Utils.elm	/^encodeFilter : SelectedFilter -> ( String, Encode.Value )$/;"	f
 epochToDate	src/elm/Utils.elm	/^epochToDate : Float -> Date.Date$/;"	f
+eslint	package.json	/^    "eslint": "^4.3.0",$/;"	s	object:devDependencies
+eslint_d	package.json	/^    "eslint_d": "^5.0.0",$/;"	s	object:devDependencies
 eventBillDecoder	src/elm/Data/EventBill.elm	/^eventBillDecoder : D.Decoder EventBill$/;"	c
 eventBillEndpoint	src/elm/Requests/EventBill.elm	/^eventBillEndpoint : EndPoints -> String -> String$/;"	f
 eventBillSendDecoder	src/elm/Data/EventBill.elm	/^eventBillSendDecoder : D.Decoder EventBillSendResult$/;"	c
@@ -151,28 +174,64 @@ eventsDecoder	src/elm/Data/Event.elm	/^eventsDecoder : D.Decoder Events$/;"	c
 eventsEndpoint	src/elm/Requests/Event.elm	/^eventsEndpoint : EndPoints -> String$/;"	f
 eventsTableConfig	src/elm/Views/Event.elm	/^eventsTableConfig : Config msg -> Table.Config Event msg$/;"	f
 exposed-modules	elm-package.json	/^    "exposed-modules": [],$/;"	a
-extract-text-webpack-plugin	package.json	/^    "extract-text-webpack-plugin": "^1.0.1",$/;"	s	object:devDependencies
 fetchEvent	src/elm/Requests/Event.elm	/^fetchEvent : Model -> String -> Cmd Msg$/;"	f
 fetchEventBill	src/elm/Requests/EventBill.elm	/^fetchEventBill : Model -> Cmd Msg$/;"	f
 fetchOrganizer	src/elm/Requests/Organizer.elm	/^fetchOrganizer : Model -> String -> Cmd Msg$/;"	f
 fetchOrganizers	src/elm/Requests/Organizer.elm	/^fetchOrganizers : Model -> Cmd Msg$/;"	f
-file-loader	package.json	/^    "file-loader": "^0.9.0",$/;"	s	object:devDependencies
+file-loader	node_modules/elm-assets-loader/package.json	/^    "file-loader": "^0.9.0",$/;"	s	object:devDependencies
+files	node_modules/elm-assets-loader/package.json	/^  "files": [$/;"	a
 getNow	src/elm/Main.elm	/^getNow =$/;"	f
+glob	package.json	/^    "glob": "^5.0.14",$/;"	s	object:devDependencies
 goBackLink	src/elm/Utils.elm	/^goBackLink : msg -> Html msg$/;"	f
+homepage	node_modules/elm-assets-loader/package.json	/^  "homepage": "https:\/\/github.com\/NoRedInk\/elm-assets-loader#readme",$/;"	s
 html-webpack-plugin	package.json	/^    "html-webpack-plugin": "^2.17.0",$/;"	s	object:devDependencies
 imageForLetter	src/elm/Main.elm	/^imageForLetter { sign, description } =$/;"	f
 index.html	src/static/index.html	1;"	F
+index.js	node_modules/elm-assets-loader/index.js	1;"	F
+index.js	src/static/index.js	1;"	F
 init	src/elm/Main.elm	/^init =$/;"	f
-jquery	package.json	/^    "jquery": "^3.1.0",$/;"	s	object:devDependencies
+keywords	node_modules/elm-assets-loader/package.json	/^  "keywords": [$/;"	a
+letterA	src/elm/Assets.elm	/^letterA =$/;"	f
+letterB	src/elm/Assets.elm	/^letterB =$/;"	f
+letterC	src/elm/Assets.elm	/^letterC =$/;"	f
+letterD	src/elm/Assets.elm	/^letterD =$/;"	f
+letterE	src/elm/Assets.elm	/^letterE =$/;"	f
+letterF	src/elm/Assets.elm	/^letterF =$/;"	f
+letterG	src/elm/Assets.elm	/^letterG =$/;"	f
+letterH	src/elm/Assets.elm	/^letterH =$/;"	f
+letterI	src/elm/Assets.elm	/^letterI =$/;"	f
+letterJ	src/elm/Assets.elm	/^letterJ =$/;"	f
+letterK	src/elm/Assets.elm	/^letterK =$/;"	f
+letterL	src/elm/Assets.elm	/^letterL =$/;"	f
+letterM	src/elm/Assets.elm	/^letterM =$/;"	f
+letterN	src/elm/Assets.elm	/^letterN =$/;"	f
+letterO	src/elm/Assets.elm	/^letterO =$/;"	f
+letterP	src/elm/Assets.elm	/^letterP =$/;"	f
+letterQ	src/elm/Assets.elm	/^letterQ =$/;"	f
+letterR	src/elm/Assets.elm	/^letterR =$/;"	f
+letterS	src/elm/Assets.elm	/^letterS =$/;"	f
+letterT	src/elm/Assets.elm	/^letterT =$/;"	f
+letterU	src/elm/Assets.elm	/^letterU =$/;"	f
+letterV	src/elm/Assets.elm	/^letterV =$/;"	f
+letterW	src/elm/Assets.elm	/^letterW =$/;"	f
+letterX	src/elm/Assets.elm	/^letterX =$/;"	f
+letterY	src/elm/Assets.elm	/^letterY =$/;"	f
+letterZ	src/elm/Assets.elm	/^letterZ =$/;"	f
 lettersDict	src/elm/Main.elm	/^lettersDict =$/;"	f
 lettersList	src/elm/Main.elm	/^lettersList =$/;"	f
 lettersWithoutLast	src/elm/Main.elm	/^                lettersWithoutLast =$/;"	f	function:update
 license	elm-package.json	/^    "license": "MIT",$/;"	s
+license	node_modules/elm-assets-loader/package.json	/^  "license": "BSD-3-Clause",$/;"	s
 license	package.json	/^  "license": "ISC",$/;"	s
 linkButton	src/elm/Utils.elm	/^linkButton : String -> String -> String -> Html msg$/;"	f
+loader-utils	node_modules/elm-assets-loader/package.json	/^    "loader-utils": "^1.0.2"$/;"	s	object:dependencies
+loader.js	loader.js	1;"	F
+main	node_modules/elm-assets-loader/package.json	/^  "main": "index.js",$/;"	s
 main	src/Main.elm	/^main =$/;"	f
 main	src/elm/Main.elm	/^main =$/;"	f
 match	src/elm/Main.elm	/^                match =$/;"	f	function:update
+memory-fs	node_modules/elm-assets-loader/package.json	/^    "memory-fs": "^0.3.0",$/;"	s	object:devDependencies
+name	node_modules/elm-assets-loader/package.json	/^  "name": "elm-assets-loader",$/;"	s
 name	package.json	/^  "name": "lsf-quizz",$/;"	s
 newCount	src/elm/Main.elm	/^                        newCount =$/;"	f	function:update
 orderDecoder	src/elm/Data/Order.elm	/^orderDecoder : D.Decoder Order$/;"	c
@@ -189,20 +248,28 @@ organizersCustomization	src/elm/Views/Organizer.elm	/^organizersCustomization : 
 organizersDecoder	src/elm/Data/Organizer.elm	/^organizersDecoder : D.Decoder Organizers$/;"	c
 organizersEndpoint	src/elm/Requests/Organizer.elm	/^organizersEndpoint : EndPoints -> String$/;"	f
 organizersTableConfig	src/elm/Views/Organizer.elm	/^organizersTableConfig : Config msg -> Table.Config Organizer msg$/;"	f
+package.json	node_modules/elm-assets-loader/package.json	1;"	F
 package.json	package.json	1;"	F
+path	src/elm/Main.elm	/^path (Asset str) =$/;"	f
+peerDependencies	node_modules/elm-assets-loader/package.json	/^  "peerDependencies": {$/;"	o
+pify	node_modules/elm-assets-loader/package.json	/^    "pify": "^2.3.0",$/;"	s	object:devDependencies
 plum	src/elm/Utils.elm	/^plum : String$/;"	c
 postinstall	package.json	/^    "postinstall": "yarn elm:install; mv node_modules\/.bin\/elm-make node_modules\/.bin\/elm-ma/;"	s	object:scripts
 preinstall	package.json	/^    "preinstall": "rm -rf node_modules\/",$/;"	s	object:scripts
+prettier	package.json	/^    "prettier": "^1.5.3",$/;"	s	object:devDependencies
 progressBar	src/elm/Main.elm	/^progressBar counter =$/;"	f
 reinstall	package.json	/^    "reinstall": "npm i rimraf && rimraf node_modules && npm uninstall -g elm && npm i -g elm &&/;"	s	object:scripts
 repository	elm-package.json	/^    "repository": "https:\/\/github.com\/moarwick\/elm-webpack-starter.git",$/;"	s
+repository	node_modules/elm-assets-loader/package.json	/^  "repository": {$/;"	o
 responsibilityToString	src/elm/Data/Order.elm	/^responsibilityToString : Responsibility -> String$/;"	f
 result	src/elm/Main.elm	/^                        result =$/;"	f	function:update
 result	src/elm/Main.elm	/^                result =$/;"	f	function:update
-rimraf	package.json	/^    "rimraf": "^2.6.1",$/;"	s	object:devDependencies
+rimraf	package.json	/^    "rimraf": "^2.6.2",$/;"	s	object:devDependencies
 scaled	src/elm/Main.elm	/^scaled =$/;"	f
+scripts	node_modules/elm-assets-loader/package.json	/^  "scripts": {$/;"	o
 scripts	package.json	/^  "scripts": {$/;"	o
 searchBox	src/elm/Search.elm	/^searchBox : Config msg -> Query -> Html msg$/;"	f
+semver	node_modules/elm-assets-loader/package.json	/^    "semver": "^5.3.0"$/;"	s	object:devDependencies
 sendEventBill	src/elm/Requests/EventBill.elm	/^sendEventBill : Model -> Cmd Msg$/;"	f
 sortByLegalPrivileged	src/elm/Views/EventBill.elm	/^sortByLegalPrivileged : BillOrderDetails -> BillOrderDetails$/;"	f
 source-directories	elm-package.json	/^    "source-directories": [$/;"	a
@@ -213,15 +280,20 @@ stylesheet	src/elm/Main.elm	/^stylesheet =$/;"	f
 subs	src/elm/Main.elm	/^subs model =$/;"	f
 summary	elm-package.json	/^    "summary": "Example using `elm-webpack-loader`.",$/;"	s
 tableCustomizations	src/elm/Utils.elm	/^tableCustomizations : Table.Customizations data msg$/;"	c
+test	node_modules/elm-assets-loader/package.json	/^    "test": "WEBPACK_VERSION=$(.\/node_modules\/.bin\/webpack --version) .\/node_modules\/.bin\//;"	s	object:scripts
 timeout	src/elm/Main.elm	/^                        timeout =$/;"	f	function:update
 titleRow	src/elm/Views/EventBill.elm	/^titleRow : String -> String -> Html msg$/;"	f
 totalRow	src/elm/Views/EventBill.elm	/^totalRow : String -> String -> Html msg$/;"	f
+type	node_modules/elm-assets-loader/package.json	/^    "type": "git",$/;"	s	object:repository
 update	src/elm/Main.elm	/^update msg model =$/;"	f
 updateFilter	src/elm/Data/Filters.elm	/^updateFilter : String -> String -> SelectedFilter -> SelectedFilter$/;"	f
 updateFilters	src/elm/Data/Filters.elm	/^updateFilters : String -> String -> List SelectedFilter -> List SelectedFilter$/;"	f
 updateQuery	src/elm/Data/Filters.elm	/^updateQuery : String -> String -> Query -> Query$/;"	f
-url-loader	package.json	/^    "url-loader": "^0.5.7",$/;"	s	object:devDependencies
+url	node_modules/elm-assets-loader/package.json	/^    "url": "git+https:\/\/github.com\/NoRedInk\/elm-assets-loader.git"$/;"	s	object:repository
+url	node_modules/elm-assets-loader/package.json	/^    "url": "https:\/\/github.com\/NoRedInk\/elm-assets-loader\/issues"$/;"	s	object:bugs
+url-loader	package.json	/^    "url-loader": "^0.6.2",$/;"	s	object:devDependencies
 version	elm-package.json	/^    "version": "1.0.0",$/;"	s
+version	node_modules/elm-assets-loader/package.json	/^  "version": "0.3.0",$/;"	s
 version	package.json	/^  "version": "0.0.1",$/;"	s
 view	src/elm/Main.elm	/^view ({ currentLetter, choices, state, counter } as model) =$/;"	f
 view	src/elm/Views/Event.elm	/^view : Config msg -> Table.State -> Events -> Html msg$/;"	f
@@ -241,7 +313,8 @@ viewOtherServices	src/elm/Views/EventBill.elm	/^viewOtherServices : EventBill ->
 viewScore	src/elm/Main.elm	/^viewScore { result, answered, correct, currentLetter } =$/;"	f
 viewSummary	src/elm/Views/EventBill.elm	/^viewSummary : EventBill -> Html msg$/;"	f
 warnBalance	src/elm/Views/Event.elm	/^warnBalance : Event -> String$/;"	f
-webpack	package.json	/^    "webpack": "^1.13.1",$/;"	s	object:devDependencies
-webpack-dev-server	package.json	/^    "webpack-dev-server": "^1.14.1",$/;"	s	object:devDependencies
-webpack-merge	package.json	/^    "webpack-merge": "^2.4.0"$/;"	s	object:devDependencies
+webpack	node_modules/elm-assets-loader/package.json	/^    "webpack": ">=1.13.3 <4.0.0"$/;"	s	object:peerDependencies
+webpack	package.json	/^    "webpack": "^3.8.1",$/;"	s	object:devDependencies
+webpack-dev-server	package.json	/^    "webpack-dev-server": "^2.9.4",$/;"	s	object:devDependencies
+webpack-merge	package.json	/^    "webpack-merge": "^4.1.1"$/;"	s	object:devDependencies
 webpack.config.js	webpack.config.js	1;"	F
