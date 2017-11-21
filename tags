@@ -207,7 +207,7 @@ sendEventBill	src/elm/Requests/EventBill.elm	/^sendEventBill : Model -> Cmd Msg$
 sortByLegalPrivileged	src/elm/Views/EventBill.elm	/^sortByLegalPrivileged : BillOrderDetails -> BillOrderDetails$/;"	f
 source-directories	elm-package.json	/^    "source-directories": [$/;"	a
 spacerRow	src/elm/Utils.elm	/^spacerRow : Html msg$/;"	c
-start	package.json	/^    "start": "webpack-dev-server --hot --inline --host 0.0.0.0 --public 192.168.1.90:3002 --port/;"	s	object:scripts
+start	package.json	/^    "start": "webpack-dev-server --hot --inline --host 0.0.0.0 --public 0.0.0.0:3002 --port 3002/;"	s	object:scripts
 state	src/elm/Main.elm	/^                        state =$/;"	f	function:update
 stylesheet	src/elm/Main.elm	/^stylesheet =$/;"	f
 subs	src/elm/Main.elm	/^subs model =$/;"	f

@@ -217,7 +217,7 @@ update msg model =
                 { model | userChoice = userChoice, result = result, answered = answered, correct = correct, state = Score } ! []
 
         Today time ->
-            { model | time = time, seed = Random.initialSeed <| round model.time } ! [ Task.perform identity <| Task.succeed GenerateQuestion ]
+            { model | time = time, seed = Random.initialSeed <| round model.time } ! []
 
 
 view : Model -> Html Msg
