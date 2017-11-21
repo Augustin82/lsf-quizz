@@ -161,36 +161,30 @@ update msg model =
                         |> Dict.remove model.userChoice
                         |> Dict.keys
 
-                ( ( currentLetter, l1 ), s1 ) =
+                ( choices, newSeed1 ) =
                     lettersWithoutLast
-                        |> Random.List.choose
-                        |> Random.map (Tuple.mapFirst (Maybe.withDefault "?"))
+                        |> Random.List.shuffle
+                        |> Random.map (List.take 4)
                         |> (flip Random.step) model.seed
 
-                ( ( choice1, l2 ), s2 ) =
-                    l1
+                ( ( randomLetter, _ ), newSeed2 ) =
+                    choices
                         |> Random.List.choose
-                        |> Random.map (Tuple.mapFirst (Maybe.withDefault "?"))
-                        |> (flip Random.step) s1
-
-                ( ( choice2, l3 ), s3 ) =
-                    l2
-                        |> Random.List.choose
-                        |> Random.map (Tuple.mapFirst (Maybe.withDefault "?"))
-                        |> (flip Random.step) s2
-
-                ( ( choice3, l4 ), s4 ) =
-                    l3
-                        |> Random.List.choose
-                        |> Random.map (Tuple.mapFirst (Maybe.withDefault "?"))
-                        |> (flip Random.step) s3
-
-                ( choices, s5 ) =
-                    [ currentLetter, choice1, choice2, choice3 ]
-                        |> Random.List.shuffle
-                        |> (flip Random.step) s4
+                        |> (flip Random.step) newSeed1
             in
-                { model | seed = s5, currentLetter = currentLetter |> (flip Dict.get) lettersDict |> Maybe.withDefault emptyLetter, choices = choices, result = NotAnswered, state = Question, counter = 10 } ! []
+                { model
+                    | seed = newSeed2
+                    , currentLetter =
+                        randomLetter
+                            |> Maybe.withDefault ""
+                            |> (flip Dict.get) lettersDict
+                            |> Maybe.withDefault emptyLetter
+                    , choices = choices
+                    , result = NotAnswered
+                    , state = Question
+                    , counter = 10
+                }
+                    ! []
 
         Answer userChoice ->
             let
