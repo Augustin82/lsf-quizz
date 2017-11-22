@@ -211,7 +211,7 @@ update msg model =
                 { model | userChoice = userChoice, result = result, answered = answered, correct = correct, state = Score } ! []
 
         Today time ->
-            { model | time = time, seed = Random.initialSeed <| round model.time } ! []
+            { model | time = time, seed = Random.initialSeed <| round time } ! []
 
 
 view : Model -> Html Msg
