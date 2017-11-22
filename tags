@@ -186,6 +186,7 @@ goBackLink	src/elm/Utils.elm	/^goBackLink : msg -> Html msg$/;"	f
 homepage	node_modules/elm-assets-loader/package.json	/^  "homepage": "https:\/\/github.com\/NoRedInk\/elm-assets-loader#readme",$/;"	s
 html-webpack-plugin	package.json	/^    "html-webpack-plugin": "^2.17.0",$/;"	s	object:devDependencies
 imageForLetter	src/elm/Main.elm	/^imageForLetter { sign, description } =$/;"	f
+index.html	dist/index.html	1;"	F
 index.html	src/static/index.html	1;"	F
 index.js	node_modules/elm-assets-loader/index.js	1;"	F
 index.js	src/static/index.js	1;"	F
@@ -279,6 +280,8 @@ state	src/elm/Main.elm	/^                        state =$/;"	f	function:update
 stylesheet	src/elm/Main.elm	/^stylesheet =$/;"	f
 subs	src/elm/Main.elm	/^subs model =$/;"	f
 summary	elm-package.json	/^    "summary": "Example using `elm-webpack-loader`.",$/;"	s
+sw.js	src/static/sw.js	1;"	F
+sw.js	src/sw.js	1;"	F
 tableCustomizations	src/elm/Utils.elm	/^tableCustomizations : Table.Customizations data msg$/;"	c
 test	node_modules/elm-assets-loader/package.json	/^    "test": "WEBPACK_VERSION=$(.\/node_modules\/.bin\/webpack --version) .\/node_modules\/.bin\//;"	s	object:scripts
 timeout	src/elm/Main.elm	/^                        timeout =$/;"	f	function:update
