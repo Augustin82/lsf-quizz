@@ -25,7 +25,7 @@ type Msg
     = NoOp
     | Tick Time
     | Today Time
-    | GenerateQuestion
+    | GenerateQuestion Mode
     | Answer String
 
 
@@ -60,7 +60,8 @@ type alias Url =
 
 
 type Mode
-    = Signs
+    = RecognizeSign
+    | SelectSign
 
 
 type State
@@ -153,7 +154,7 @@ update msg model =
                 _ ->
                     model ! []
 
-        GenerateQuestion ->
+        GenerateQuestion mode ->
             let
                 lettersWithoutLast =
                     lettersDict
@@ -183,6 +184,7 @@ update msg model =
                     , result = NotAnswered
                     , state = Question
                     , counter = 10
+                    , mode = mode
                 }
                     ! []
 
@@ -215,7 +217,7 @@ update msg model =
 
 
 view : Model -> Html Msg
-view ({ currentLetter, choices, state, counter } as model) =
+view ({ currentLetter, choices, state, counter, mode } as model) =
     viewport stylesheet <|
         el Main [ height fill, width fill ] <|
             case state of
@@ -225,22 +227,23 @@ view ({ currentLetter, choices, state, counter } as model) =
                             [ spacing 20 ]
                             [ text "Bienvenue !"
                             , spacer 4
-                            , button Button [ onClick GenerateQuestion ] <| text "Jouer !"
+                            , button Button [ onClick <| GenerateQuestion RecognizeSign ] <| text "Reconnaître un signe"
+                            , button Button [ onClick <| GenerateQuestion SelectSign ] <| text "Choisir le bon signe"
                             ]
 
                 Question ->
                     EK.column Default
                         [ verticalSpread, height fill, width fill, paddingTop 10 ]
-                        [ ( currentLetter.sign, imageForLetter currentLetter )
-                        , ( currentLetter.sign ++ "progressBar", progressBar counter )
-                        , ( currentLetter.sign ++ "choice", answers choices )
+                        [ ( currentLetter.name, viewQuestion mode currentLetter )
+                        , ( currentLetter.name ++ "progressBar", progressBar counter )
+                        , ( currentLetter.name ++ "choice", answers mode choices )
                         ]
 
                 Score ->
                     EK.column Default
                         [ verticalSpread, height fill, width fill, paddingTop 10 ]
-                        [ ( currentLetter.sign, imageForLetter currentLetter )
-                        , ( currentLetter.sign ++ "result", viewScore model )
+                        [ ( currentLetter.name, viewQuestion mode currentLetter )
+                        , ( currentLetter.name ++ "result", viewScore model )
                         ]
 
 
@@ -252,7 +255,7 @@ progressBar counter =
 
 
 viewScore : Model -> Elem
-viewScore { result, answered, correct, currentLetter } =
+viewScore { result, answered, correct, currentLetter, mode } =
     case result of
         NotAnswered ->
             empty
@@ -280,8 +283,23 @@ viewScore { result, answered, correct, currentLetter } =
                         , el Default [ center ] <|
                             text comment
                         , el Default [ center ] <| text <| "Score : " ++ toString correct ++ "/" ++ toString answered
-                        , button Default [ padding 10, onClick GenerateQuestion ] <| text "Suivant >>"
+                        , button Default [ padding 10, onClick <| GenerateQuestion mode ] <| text "Suivant >>"
                         ]
+
+
+viewQuestion mode =
+    case mode of
+        RecognizeSign ->
+            imageForLetter
+
+        SelectSign ->
+            characterForLetter
+
+
+characterForLetter : Letter -> Elem
+characterForLetter { name, description } =
+    el Default [ center, width fill, height fill ] <|
+        text name
 
 
 imageForLetter : Letter -> Elem
@@ -290,32 +308,46 @@ imageForLetter { sign, description } =
         image Default [ width (percent 100) ] { src = sign, caption = description }
 
 
-answers : List String -> Elem
-answers choices =
+answers : Mode -> List String -> Elem
+answers mode choices =
     el Default [ center, width fill ] <|
         wrappedRow Default [] <|
-            List.indexedMap viewChoice <|
+            List.indexedMap (viewChoice mode) <|
                 choices
 
 
-viewChoice : Int -> String -> Elem
-viewChoice index choice =
-    button Button
-        [ height (px 100)
-        , width (percent 50)
-        , onClick (Answer choice)
-        , vary Larger True
-        , vary Top True
-        , vary Right (rem index 2 == 0)
-        , vary Bottom (index > 1)
-        ]
-    <|
-        text (choice)
+viewChoice : Mode -> Int -> String -> Elem
+viewChoice mode index choice =
+    case mode of
+        RecognizeSign ->
+            button Button
+                [ height (px 100)
+                , width (percent 50)
+                , onClick (Answer choice)
+                , vary Larger True
+                , vary Top True
+                , vary Right (rem index 2 == 0)
+                , vary Bottom (index > 1)
+                ]
+            <|
+                text (choice)
+
+        SelectSign ->
+            choice
+                |> (flip Dict.get) lettersDict
+                |> Maybe.withDefault emptyLetter
+                |> (\{ sign, description } ->
+                        image Default
+                            [ width (percent 100)
+                            , onClick (Answer choice)
+                            ]
+                            { src = sign, caption = description }
+                   )
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( { mode = Signs
+    ( { mode = RecognizeSign
       , state = Home
       , userChoice = ""
       , currentLetter = emptyLetter
