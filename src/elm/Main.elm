@@ -27,6 +27,7 @@ type Msg
     | Today Time
     | GenerateQuestion Mode
     | Answer String
+    | GoHome
 
 
 type alias Model =
@@ -82,15 +83,21 @@ type Styles
     | Main
     | Button
     | Bar
+    | Jumbo
 
 
 type Variations
     = None
+    | Smaller
+    | Smallest
     | Larger
     | Top
     | Bottom
     | Right
     | Left
+    | White
+    | Primary
+    | Secondary
 
 
 type alias Elem =
@@ -109,9 +116,12 @@ main =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of
+    case Debug.log "msg" msg of
         NoOp ->
             model ! []
+
+        GoHome ->
+            { model | state = Home } ! []
 
         Tick time ->
             case model.state of
@@ -126,7 +136,7 @@ update msg model =
                         answered =
                             model.answered
                                 + (if timeout then
-                                    10
+                                    1
                                    else
                                     0
                                   )
@@ -200,17 +210,24 @@ update msg model =
                         Incorrect
 
                 answered =
-                    model.answered + 10
+                    model.answered + 1
 
                 correct =
                     model.correct
                         + (if match then
-                            model.counter
+                            1
                            else
                             0
                           )
             in
-                { model | userChoice = userChoice, result = result, answered = answered, correct = correct, state = Score } ! []
+                { model
+                    | userChoice = userChoice
+                    , result = result
+                    , answered = answered
+                    , correct = correct
+                    , state = Score
+                }
+                    ! []
 
         Today time ->
             { model | time = time, seed = Random.initialSeed <| round time } ! []
@@ -219,37 +236,56 @@ update msg model =
 view : Model -> Html Msg
 view ({ currentLetter, choices, state, counter, mode } as model) =
     viewport stylesheet <|
-        el Main [ height fill, width fill ] <|
+        el Main [ height fill, width fill, clipX, clipY ] <|
             case state of
                 Home ->
                     el Default [ verticalCenter, center ] <|
                         column Default
-                            [ spacing 20 ]
-                            [ text "Bienvenue !"
+                            [ spacingXY 0 20 ]
+                            [ el Default [ vary Larger True ] <|
+                                text "Bienvenue !"
                             , spacer 4
-                            , button Button [ onClick <| GenerateQuestion RecognizeSign ] <| text "Reconnaître un signe"
-                            , button Button [ onClick <| GenerateQuestion SelectSign ] <| text "Choisir le bon signe"
+                            , button Button [ vary Smaller True, vary Primary True, padding 10, onClick <| GenerateQuestion RecognizeSign ] <|
+                                text "Reconnaître un signe"
+                            , button Button [ vary Smaller True, vary Primary True, padding 10, onClick <| GenerateQuestion SelectSign ] <|
+                                text "Choisir le bon signe"
+                            , copyrightNotice
                             ]
 
                 Question ->
-                    EK.column Default
-                        [ verticalSpread, height fill, width fill, paddingTop 10 ]
-                        [ ( currentLetter.name, viewQuestion mode currentLetter )
-                        , ( currentLetter.name ++ "progressBar", progressBar counter )
-                        , ( currentLetter.name ++ "choice", answers mode choices )
+                    column Default
+                        [ height fill, width fill, verticalSpread ]
+                        [ viewQuestion mode currentLetter
+                        , viewAnswers model
+                        , homeButton
                         ]
 
                 Score ->
-                    EK.column Default
-                        [ verticalSpread, height fill, width fill, paddingTop 10 ]
-                        [ ( currentLetter.name, viewQuestion mode currentLetter )
-                        , ( currentLetter.name ++ "result", viewScore model )
+                    column Default
+                        [ height fill, width fill, verticalSpread ]
+                        [ viewQuestion mode currentLetter
+                        , viewScore model
+                        , homeButton
                         ]
+
+
+copyrightNotice : Elem
+copyrightNotice =
+    screen <|
+        el Default [ alignRight, alignBottom, padding 10, vary Secondary True, vary Smallest True ] <|
+            text "© Augustin Ragon 2017 - Tous droits réservés"
+
+
+homeButton : Elem
+homeButton =
+    screen <|
+        button Button [ vary Primary True, onClick GoHome, padding 5 ] <|
+            text "<<"
 
 
 progressBar : Int -> Elem
 progressBar counter =
-    el Default [ width (percent 100) ] <|
+    el Default [ width (percent 100), alignBottom ] <|
         el Bar [ width <| percent <| toFloat <| counter * 10 ] <|
             text " "
 
@@ -265,28 +301,38 @@ viewScore { result, answered, correct, currentLetter, mode } =
                 comment =
                     case result of
                         Correct ->
-                            "Vrai !"
+                            "Bravo !"
 
                         Incorrect ->
-                            "Faux !"
+                            "Perdu !"
 
                         Timeout ->
-                            "Plus de temps !"
+                            "Trop tard !"
 
                         NotAnswered ->
                             ""
             in
-                el Default [ center, width fill ] <|
+                el Default [ center, height fill, width fill ] <|
                     column Default
-                        [ spacing 10 ]
-                        [ el Default [ center ] <| text <| "--> " ++ currentLetter.name ++ " <--"
-                        , el Default [ center ] <|
+                        [ height fill, verticalSpread, width fill ]
+                        [ el Default [ height <| px <| defSize + 10 ] <|
+                            viewAnswer mode currentLetter
+                        , el Default [ vary Secondary True, center ] <|
                             text comment
-                        , el Default [ center ] <| text <| "Score : " ++ toString correct ++ "/" ++ toString answered
-                        , button Default [ padding 10, onClick <| GenerateQuestion mode ] <| text "Suivant >>"
+                        , el Default [ vary Secondary True, center, paddingXY 10 20 ] <|
+                            text ("Score : " ++ toString correct ++ "/" ++ toString answered)
+                        , button Button
+                            [ padding 10
+                            , vary Primary True
+                            , onClick <|
+                                GenerateQuestion mode
+                            ]
+                          <|
+                            text "Suivant >>"
                         ]
 
 
+viewQuestion : Mode -> Letter -> Elem
 viewQuestion mode =
     case mode of
         RecognizeSign ->
@@ -296,41 +342,65 @@ viewQuestion mode =
             characterForLetter
 
 
+viewAnswer : Mode -> Letter -> Elem
+viewAnswer mode =
+    case mode of
+        RecognizeSign ->
+            characterForLetter
+
+        SelectSign ->
+            imageForLetter
+
+
 characterForLetter : Letter -> Elem
 characterForLetter { name, description } =
-    el Default [ center, width fill, height fill ] <|
+    el Jumbo [ center, verticalCenter ] <|
         text name
 
 
 imageForLetter : Letter -> Elem
 imageForLetter { sign, description } =
-    el Default [ center, width fill, height fill ] <|
-        image Default [ width (percent 100) ] { src = sign, caption = description }
+    el Default [ vary White True, height fill, width fill ] <|
+        el Default [ center, verticalCenter ] <|
+            image Default [ height (px defSize) ] { src = sign, caption = description }
+
+
+viewAnswers : Model -> Elem
+viewAnswers { mode, choices, counter } =
+    el Default [ center, width fill ] <|
+        column Default
+            [ height fill, width fill ]
+            [ progressBar counter
+            , answers mode choices
+            ]
 
 
 answers : Mode -> List String -> Elem
 answers mode choices =
     el Default [ center, width fill ] <|
-        wrappedRow Default [] <|
+        EK.wrappedRow Default [ alignBottom, width fill ] <|
             List.indexedMap (viewChoice mode) <|
                 choices
 
 
-viewChoice : Mode -> Int -> String -> Elem
+viewChoice : Mode -> Int -> String -> ( String, Elem )
 viewChoice mode index choice =
     case mode of
         RecognizeSign ->
-            button Button
-                [ height (px 100)
-                , width (percent 50)
-                , onClick (Answer choice)
-                , vary Larger True
-                , vary Top True
-                , vary Right (rem index 2 == 0)
-                , vary Bottom (index > 1)
-                ]
-            <|
-                text (choice)
+            choice
+                |> text
+                |> el Jumbo [ center, verticalCenter ]
+                |> button Button
+                    [ height <| px <| defSize + 10
+                    , width (percent 50)
+                    , onClick (Answer choice)
+                    , vary Secondary True
+                    , vary Larger True
+                    , vary Top True
+                    , vary Right (rem index 2 == 0)
+                    , vary Bottom (index > 1)
+                    ]
+                |> (,) choice
 
         SelectSign ->
             choice
@@ -338,11 +408,23 @@ viewChoice mode index choice =
                 |> Maybe.withDefault emptyLetter
                 |> (\{ sign, description } ->
                         image Default
-                            [ width (percent 100)
-                            , onClick (Answer choice)
+                            [ center
+                            , verticalCenter
+                            , height (px defSize)
                             ]
                             { src = sign, caption = description }
                    )
+                |> button Button
+                    [ height <| px <| defSize + 10
+                    , width (percent 50)
+                    , onClick (Answer choice)
+                    , vary White True
+                    , vary Larger True
+                    , vary Top True
+                    , vary Right (rem index 2 == 0)
+                    , vary Bottom (index > 1)
+                    ]
+                |> (,) choice
 
 
 init : ( Model, Cmd Msg )
@@ -369,10 +451,6 @@ subs model =
         Time.every Time.second Tick
     else
         Sub.none
-
-
-
--- Sub.none
 
 
 getNow : Cmd Msg
@@ -433,25 +511,76 @@ scaled =
     Scale.modular 12 1.618
 
 
+darkestIndigo : Color.Color
+darkestIndigo =
+    Color.rgba 9 49 69 1
+
+
+lilia : Color.Color
+lilia =
+    Color.rgba 241 243 244 1
+
+
+lighterDaisy : Color.Color
+lighterDaisy =
+    Color.rgba 239 212 105 1
+
+
+raven : Color.Color
+raven =
+    Color.rgba 58 62 64 1
+
+
+defSize : Float
+defSize =
+    150
+
+
 stylesheet : StyleSheet Styles Variations
 stylesheet =
     styleSheet
-        [ style Default []
+        [ style Default
+            [ variation Larger [ Font.size (scaled 4) ]
+            , variation Smaller [ Font.size (scaled 2) ]
+            , variation Smallest [ Font.size (scaled 1) ]
+            , variation White
+                [ SC.background lilia
+                , SC.text raven
+                ]
+            , variation Secondary [ SC.text lighterDaisy ]
+            ]
         , style Main
             [ Font.size (scaled 3)
             , Font.typeface [ Font.font "Roboto" ]
             , Font.weight 400
+            , SC.text lilia
+            , SC.background darkestIndigo
             ]
+        , style Jumbo
+            [ Font.size <| defSize - 25 ]
         , style Button
-            [ variation Larger [ Font.size (scaled 4) ]
-            , Border.solid
+            [ Border.solid
+            , variation Larger [ Font.size (scaled 4) ]
+            , variation Smaller [ Font.size (scaled 2) ]
+            , variation White
+                [ SC.background lilia
+                , SC.text raven
+                ]
+            , variation Primary
+                [ SC.background lighterDaisy
+                , SC.text raven
+                ]
+            , variation Secondary
+                [ SC.background darkestIndigo
+                , SC.text lilia
+                ]
             , variation Top [ Border.top 1 ]
             , variation Bottom [ Border.bottom 1 ]
             , variation Right [ Border.right 1 ]
             , variation Left [ Border.left 1 ]
             ]
         , style Bar
-            [ SC.background Color.blue
+            [ SC.background lighterDaisy
             , Transition.transitions [ { delay = 0, duration = 1000, easing = "linear", props = [ "width" ] } ]
             ]
         ]

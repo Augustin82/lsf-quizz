@@ -89,13 +89,15 @@ if (TARGET_ENV === "development") {
                             options: {
                                 verbose: true,
                                 warn: true,
-                                debug: true,
+                                debug: false,
                             },
                         },
                     ],
                 },
             ],
         },
+
+        plugins: [new webpack.NamedModulesPlugin()],
     });
 }
 

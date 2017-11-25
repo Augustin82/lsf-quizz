@@ -48,8 +48,10 @@ Filter	src/elm/Data/Filters.elm	/^type alias Filter =$/;"	a
 FilterValue	src/elm/Data/Filters.elm	/^type alias FilterValue =$/;"	a
 Font	src/elm/Main.elm	/^import Style.Font as Font$/;"	n
 GenerateQuestion Mode	src/elm/Main.elm	/^    | GenerateQuestion Mode$/;"	c	type:Msg
+GoHome	src/elm/Main.elm	/^    | GoHome$/;"	c	type:Msg
 Home	src/elm/Main.elm	/^    = Home$/;"	c	type:State
 Incorrect	src/elm/Main.elm	/^    | Incorrect$/;"	c	type:Result
+Jumbo	src/elm/Main.elm	/^    | Jumbo$/;"	c	type:Styles
 Larger	src/elm/Main.elm	/^    | Larger$/;"	c	type:Variations
 Left	src/elm/Main.elm	/^    | Left$/;"	c	type:Variations
 Letter	src/elm/Main.elm	/^type alias Letter =$/;"	a
@@ -76,6 +78,7 @@ OrderStatus	src/elm/Data/Order.elm	/^type OrderStatus$/;"	t
 Orders	src/elm/Data/Order.elm	/^type alias Orders =$/;"	a
 Organizer	src/elm/Data/Organizer.elm	/^type alias Organizer =$/;"	a
 Organizers	src/elm/Data/Organizer.elm	/^type alias Organizers =$/;"	a
+Primary	src/elm/Main.elm	/^    | Primary$/;"	c	type:Variations
 Query	src/elm/Data/Filters.elm	/^type alias Query =$/;"	a
 Query	src/elm/Search.elm	/^type alias Query =$/;"	a
 Question	src/elm/Main.elm	/^    | Question$/;"	c	type:State
@@ -86,8 +89,11 @@ Right	src/elm/Main.elm	/^    | Right$/;"	c	type:Variations
 SC	src/elm/Main.elm	/^import Style.Color as SC$/;"	n
 Scale	src/elm/Main.elm	/^import Style.Scale as Scale$/;"	n
 Score	src/elm/Main.elm	/^    | Score$/;"	c	type:State
+Secondary	src/elm/Main.elm	/^    | Secondary$/;"	c	type:Variations
 SelectSign	src/elm/Main.elm	/^    | SelectSign$/;"	c	type:Mode
 SelectedFilter	src/elm/Data/Filters.elm	/^type alias SelectedFilter =$/;"	a
+Smaller	src/elm/Main.elm	/^    | Smaller$/;"	c	type:Variations
+Smallest	src/elm/Main.elm	/^    | Smallest$/;"	c	type:Variations
 State	src/elm/Main.elm	/^type State$/;"	t
 Styles	src/elm/Main.elm	/^type Styles$/;"	t
 Tick Time	src/elm/Main.elm	/^    | Tick Time$/;"	c	type:Msg
@@ -98,6 +104,7 @@ Transition	src/elm/Main.elm	/^import Style.Transition as Transition$/;"	n
 Truc	src/elm/Data/EventBill.elm	/^type alias Truc =$/;"	a
 Url	src/elm/Main.elm	/^type alias Url =$/;"	a
 Variations	src/elm/Main.elm	/^type Variations$/;"	t
+White	src/elm/Main.elm	/^    | White$/;"	c	type:Variations
 actionsColumn	src/elm/Views/Event.elm	/^actionsColumn : String -> Config msg -> Table.Column Event msg$/;"	f
 actionsColumn	src/elm/Views/Order.elm	/^actionsColumn : String -> Config msg -> Table.Column Order msg$/;"	f
 actionsColumn	src/elm/Views/Organizer.elm	/^actionsColumn : String -> Config msg -> Table.Column Organizer msg$/;"	f
@@ -135,7 +142,10 @@ clickableRow	src/elm/Views/Organizer.elm	/^clickableRow : Config msg -> Organize
 colNumber	src/elm/Views/EventBill.elm	/^colNumber : Int$/;"	c
 comment	src/elm/Main.elm	/^                comment =$/;"	f	function:viewScore
 copy-webpack-plugin	package.json	/^    "copy-webpack-plugin": "^4.0.1",$/;"	s	object:devDependencies
+copyrightNotice	src/elm/Main.elm	/^copyrightNotice =$/;"	f
 correct	src/elm/Main.elm	/^                correct =$/;"	f	function:update
+darkestIndigo	src/elm/Main.elm	/^darkestIndigo =$/;"	f
+defSize	src/elm/Main.elm	/^defSize =$/;"	f
 defaultQuery	src/elm/Data/Filters.elm	/^defaultQuery : Query$/;"	c
 dependencies	elm-package.json	/^    "dependencies": {$/;"	o
 dependencies	node_modules/elm-assets-loader/package.json	/^  "dependencies": {$/;"	o
@@ -185,6 +195,7 @@ files	node_modules/elm-assets-loader/package.json	/^  "files": [$/;"	a
 getNow	src/elm/Main.elm	/^getNow =$/;"	f
 glob	package.json	/^    "glob": "^5.0.14",$/;"	s	object:devDependencies
 goBackLink	src/elm/Utils.elm	/^goBackLink : msg -> Html msg$/;"	f
+homeButton	src/elm/Main.elm	/^homeButton =$/;"	f
 homepage	node_modules/elm-assets-loader/package.json	/^  "homepage": "https:\/\/github.com\/NoRedInk\/elm-assets-loader#readme",$/;"	s
 html-webpack-plugin	package.json	/^    "html-webpack-plugin": "^2.17.0",$/;"	s	object:devDependencies
 imageForLetter	src/elm/Main.elm	/^imageForLetter { sign, description } =$/;"	f
@@ -226,6 +237,8 @@ lettersWithoutLast	src/elm/Main.elm	/^                lettersWithoutLast =$/;"	f
 license	elm-package.json	/^    "license": "MIT",$/;"	s
 license	node_modules/elm-assets-loader/package.json	/^  "license": "BSD-3-Clause",$/;"	s
 license	package.json	/^  "license": "ISC",$/;"	s
+lighterDaisy	src/elm/Main.elm	/^lighterDaisy =$/;"	f
+lilia	src/elm/Main.elm	/^lilia =$/;"	f
 linkButton	src/elm/Utils.elm	/^linkButton : String -> String -> String -> Html msg$/;"	f
 loader-utils	node_modules/elm-assets-loader/package.json	/^    "loader-utils": "^1.0.2"$/;"	s	object:dependencies
 loader.js	loader.js	1;"	F
@@ -261,6 +274,7 @@ postinstall	package.json	/^    "postinstall": "yarn elm:install; mv node_modules
 preinstall	package.json	/^    "preinstall": "rm -rf node_modules\/",$/;"	s	object:scripts
 prettier	package.json	/^    "prettier": "^1.5.3",$/;"	s	object:devDependencies
 progressBar	src/elm/Main.elm	/^progressBar counter =$/;"	f
+raven	src/elm/Main.elm	/^raven =$/;"	f
 reinstall	package.json	/^    "reinstall": "npm i rimraf && rimraf node_modules && npm uninstall -g elm && npm i -g elm &&/;"	s	object:scripts
 repository	elm-package.json	/^    "repository": "https:\/\/github.com\/moarwick\/elm-webpack-starter.git",$/;"	s
 repository	node_modules/elm-assets-loader/package.json	/^  "repository": {$/;"	o
@@ -302,6 +316,8 @@ version	node_modules/elm-assets-loader/package.json	/^  "version": "0.3.0",$/;"	
 version	package.json	/^  "version": "0.0.1",$/;"	s
 view	src/elm/Main.elm	/^view ({ currentLetter, choices, state, counter, mode } as model) =$/;"	f
 view	src/elm/Views/Event.elm	/^view : Config msg -> Table.State -> Events -> Html msg$/;"	f
+viewAnswer	src/elm/Main.elm	/^viewAnswer mode =$/;"	f
+viewAnswers	src/elm/Main.elm	/^viewAnswers { mode, choices, counter } =$/;"	f
 viewChoice	src/elm/Main.elm	/^viewChoice mode index choice =$/;"	f
 viewCollected	src/elm/Views/EventBill.elm	/^viewCollected : EventBill -> Html msg$/;"	f
 viewCommission	src/elm/Views/EventBill.elm	/^viewCommission : EventBill -> Html msg$/;"	f
