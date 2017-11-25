@@ -89,7 +89,7 @@ if (TARGET_ENV === "development") {
                             options: {
                                 verbose: true,
                                 warn: true,
-                                debug: false,
+                                debug: true,
                             },
                         },
                     ],

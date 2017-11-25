@@ -78,6 +78,7 @@ Msg	src/elm/Main.elm	/^type Msg$/;"	t
 NextQuestion	src/elm/Main.elm	/^    | NextQuestion$/;"	c	type:Msg
 NoOp	src/elm/Main.elm	/^    = NoOp$/;"	c	type:Msg
 NotAnswered	src/elm/Main.elm	/^    | NotAnswered$/;"	c	type:Result
+Optional	src/elm/Main.elm	/^    | Optional$/;"	c	type:Variations
 Order	src/elm/Data/Order.elm	/^type alias Order =$/;"	a
 OrderStatus	src/elm/Data/Order.elm	/^type OrderStatus$/;"	t
 Orders	src/elm/Data/Order.elm	/^type alias Orders =$/;"	a
@@ -116,17 +117,20 @@ Transition	src/elm/Main.elm	/^import Style.Transition as Transition$/;"	n
 Truc	src/elm/Data/EventBill.elm	/^type alias Truc =$/;"	a
 Unselected	src/elm/Main.elm	/^    | Unselected$/;"	c	type:Variations
 Url	src/elm/Main.elm	/^type alias Url =$/;"	a
+UserAnswer	src/elm/Main.elm	/^type alias UserAnswer =$/;"	a
 Variations	src/elm/Main.elm	/^type Variations$/;"	t
 White	src/elm/Main.elm	/^    | White$/;"	c	type:Variations
 actionsColumn	src/elm/Views/Event.elm	/^actionsColumn : String -> Config msg -> Table.Column Event msg$/;"	f
 actionsColumn	src/elm/Views/Order.elm	/^actionsColumn : String -> Config msg -> Table.Column Order msg$/;"	f
 actionsColumn	src/elm/Views/Organizer.elm	/^actionsColumn : String -> Config msg -> Table.Column Organizer msg$/;"	f
+answer	src/elm/Main.elm	/^                answer =$/;"	f	function:update
 answered	src/elm/Main.elm	/^                        answered =$/;"	f	function:update
 answered	src/elm/Main.elm	/^                answered =$/;"	f	function:update
-answers	src/elm/Main.elm	/^answers mode choices =$/;"	f
+answers	src/elm/Main.elm	/^answers difficulty mode choices =$/;"	f
 author	node_modules/elm-assets-loader/package.json	/^  "author": "Marica Odagaki <marica@noredink.com>",$/;"	s
 author	package.json	/^  "author": "Augustin Ragon",$/;"	s
 ava	node_modules/elm-assets-loader/package.json	/^    "ava": "^0.19.0",$/;"	s	object:devDependencies
+averageTime	src/elm/Main.elm	/^averageTime game timeTaken =$/;"	f
 babel-core	node_modules/elm-assets-loader/package.json	/^    "babel-core": "^6.18.2",$/;"	s	object:peerDependencies
 babel-core	package.json	/^    "babel-core": "^6.26.0",$/;"	s	object:devDependencies
 billCommissionsDecoder	src/elm/Data/EventBill.elm	/^billCommissionsDecoder : D.Decoder BillCommissions$/;"	c
@@ -149,6 +153,7 @@ cancelOrder	src/elm/Requests/Order.elm	/^cancelOrder : Model -> Order -> Respons
 cancelOrderEndpoint	src/elm/Requests/Order.elm	/^cancelOrderEndpoint : EndPoints -> Order -> String$/;"	f
 centsToEurosString	src/elm/Utils.elm	/^centsToEurosString : Int -> String$/;"	f
 characterForLetter	src/elm/Main.elm	/^characterForLetter { name, description } =$/;"	f
+choicesForDifficulty	src/elm/Main.elm	/^choicesForDifficulty diff =$/;"	f
 cleaninstall	package.json	/^    "cleaninstall": "yarn add rimraf && rimraf node_modules elm-stuff && yarn install && yarn el/;"	s	object:scripts
 clickableRow	src/elm/Views/Event.elm	/^clickableRow : Config msg -> Event -> List (Attribute msg)$/;"	f
 clickableRow	src/elm/Views/Organizer.elm	/^clickableRow : Config msg -> Organizer -> List (Attribute msg)$/;"	f
@@ -224,6 +229,7 @@ index.js	node_modules/elm-assets-loader/index.js	1;"	F
 index.js	src/static/index.js	1;"	F
 init	src/elm/Main.elm	/^init =$/;"	f
 keywords	node_modules/elm-assets-loader/package.json	/^  "keywords": [$/;"	a
+letter	src/elm/Main.elm	/^                letter =$/;"	f	function:update
 letterA	src/elm/Assets.elm	/^letterA =$/;"	f
 letterB	src/elm/Assets.elm	/^letterB =$/;"	f
 letterC	src/elm/Assets.elm	/^letterC =$/;"	f
@@ -309,6 +315,7 @@ searchBox	src/elm/Search.elm	/^searchBox : Config msg -> Query -> Html msg$/;"	f
 semver	node_modules/elm-assets-loader/package.json	/^    "semver": "^5.3.0"$/;"	s	object:devDependencies
 sendEventBill	src/elm/Requests/EventBill.elm	/^sendEventBill : Model -> Cmd Msg$/;"	f
 size	src/elm/Main.elm	/^                size =$/;"	f	function:update
+sizeForDifficulty	src/elm/Main.elm	/^sizeForDifficulty difficulty =$/;"	f
 sizeForGame	src/elm/Main.elm	/^sizeForGame game =$/;"	f
 sortByLegalPrivileged	src/elm/Views/EventBill.elm	/^sortByLegalPrivileged : BillOrderDetails -> BillOrderDetails$/;"	f
 source-directories	elm-package.json	/^    "source-directories": [$/;"	a
@@ -327,6 +334,7 @@ timeTaken	src/elm/Main.elm	/^                timeTaken =$/;"	f	function:update
 timeout	src/elm/Main.elm	/^                        timeout =$/;"	f	function:update
 titleRow	src/elm/Views/EventBill.elm	/^titleRow : String -> String -> Html msg$/;"	f
 toggleButton	src/elm/Main.elm	/^toggleButton accessor value msg label model =$/;"	f
+toggleButtonWithVars	src/elm/Main.elm	/^toggleButtonWithVars vars accessor value msg label model =$/;"	f
 totalRow	src/elm/Views/EventBill.elm	/^totalRow : String -> String -> Html msg$/;"	f
 type	node_modules/elm-assets-loader/package.json	/^    "type": "git",$/;"	s	object:repository
 update	src/elm/Main.elm	/^update msg model =$/;"	f
@@ -343,7 +351,7 @@ view	src/elm/Main.elm	/^view ({ currentLetter, choices, state, counter, mode, co
 view	src/elm/Views/Event.elm	/^view : Config msg -> Table.State -> Events -> Html msg$/;"	f
 viewAnswer	src/elm/Main.elm	/^viewAnswer mode =$/;"	f
 viewAnswers	src/elm/Main.elm	/^viewAnswers { mode, choices, difficulty, counter } =$/;"	f
-viewChoice	src/elm/Main.elm	/^viewChoice mode index choice =$/;"	f
+viewChoice	src/elm/Main.elm	/^viewChoice difficulty mode index choice =$/;"	f
 viewCollected	src/elm/Views/EventBill.elm	/^viewCollected : EventBill -> Html msg$/;"	f
 viewCommission	src/elm/Views/EventBill.elm	/^viewCommission : EventBill -> Html msg$/;"	f
 viewDetails	src/elm/Views/EventBill.elm	/^viewDetails : EventBill -> Html msg$/;"	f
@@ -357,7 +365,7 @@ viewOrganizer	src/elm/Views/Organizer.elm	/^viewOrganizer : Config msg -> Organi
 viewOrganizers	src/elm/Views/Organizer.elm	/^viewOrganizers : Config msg -> Table.State -> Organizers -> Html msg$/;"	f
 viewOtherServices	src/elm/Views/EventBill.elm	/^viewOtherServices : EventBill -> Html msg$/;"	f
 viewQuestion	src/elm/Main.elm	/^viewQuestion mode =$/;"	f
-viewResult	src/elm/Main.elm	/^viewResult { result, currentLetter, mode } =$/;"	f
+viewResult	src/elm/Main.elm	/^viewResult { result, currentLetter, mode, difficulty } =$/;"	f
 viewSummary	src/elm/Views/EventBill.elm	/^viewSummary : EventBill -> Html msg$/;"	f
 warnBalance	src/elm/Views/Event.elm	/^warnBalance : Event -> String$/;"	f
 webpack	node_modules/elm-assets-loader/package.json	/^    "webpack": ">=1.13.3 <4.0.0"$/;"	s	object:peerDependencies

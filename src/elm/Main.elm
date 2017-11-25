@@ -38,6 +38,7 @@ type Msg
 type alias Model =
     { currentLetter : Letter
     , questions : List String
+    , answers : List UserAnswer
     , userChoice : String
     , choices : List String
     , mode : Mode
@@ -46,11 +47,18 @@ type alias Model =
     , result : Result
     , answered : Int
     , correct : Int
-    , timeTaken : Int
+    , timeTaken : Float
     , state : State
-    , counter : Int
+    , counter : Float
     , difficulty : Difficulty
     , game : Game
+    }
+
+
+type alias UserAnswer =
+    { question : String
+    , answer : String
+    , timeTaken : Float
     }
 
 
@@ -85,7 +93,7 @@ type Difficulty
     | Hard
 
 
-counterForDifficulty : Difficulty -> Int
+counterForDifficulty : Difficulty -> Float
 counterForDifficulty diff =
     case diff of
         Easy ->
@@ -93,6 +101,19 @@ counterForDifficulty diff =
 
         Medium ->
             10
+
+        Hard ->
+            5
+
+
+choicesForDifficulty : Difficulty -> Int
+choicesForDifficulty diff =
+    case diff of
+        Easy ->
+            1
+
+        Medium ->
+            3
 
         Hard ->
             5
@@ -142,6 +163,7 @@ type Variations
     | Primary
     | Secondary
     | Unselected
+    | Optional
 
 
 type alias Elem =
@@ -181,12 +203,12 @@ update msg model =
             }
                 ! []
 
-        Tick time ->
+        Tick _ ->
             case model.state of
                 Question ->
                     let
                         newCount =
-                            model.counter - 1
+                            model.counter - 0.1
 
                         timeout =
                             model.counter < 0
@@ -237,6 +259,7 @@ update msg model =
                 startedModel =
                     { model
                         | questions = questions
+                        , answers = []
                         , seed = seed1
                     }
             in
@@ -262,7 +285,7 @@ update msg model =
                         ( cs, newSeed1 ) =
                             lettersWithoutLast
                                 |> Random.List.shuffle
-                                |> Random.map (List.take 3)
+                                |> Random.map (List.take <| choicesForDifficulty model.difficulty)
                                 |> (flip Random.step) model.seed
 
                         ( choices, newSeed2 ) =
@@ -284,8 +307,11 @@ update msg model =
 
         Answer userChoice ->
             let
+                letter =
+                    model.currentLetter.name
+
                 match =
-                    userChoice == model.currentLetter.name
+                    userChoice == letter
 
                 result =
                     if match then
@@ -306,6 +332,9 @@ update msg model =
                            else
                             0
                           )
+
+                answer =
+                    UserAnswer letter userChoice timeTaken
             in
                 { model
                     | userChoice = userChoice
@@ -314,6 +343,7 @@ update msg model =
                     , correct = correct
                     , state = Result
                     , timeTaken = timeTaken
+                    , answers = answer :: model.answers
                 }
                     ! []
 
@@ -363,7 +393,7 @@ view ({ currentLetter, choices, state, counter, mode, correct, answered, game, t
                         [ el Default [ vary Secondary True, center, paddingXY 10 20 ] <|
                             text ("Score : " ++ toString correct ++ "/" ++ toString answered)
                         , el Default [ vary Secondary True, center, paddingXY 10 20 ] <|
-                            text ("Temps moyen : " ++ (toString <| (//) (sizeForGame game) <| timeTaken))
+                            text ("Temps moyen : " ++ (toString <| averageTime game timeTaken) ++ " s")
                         , button Button
                             [ vary Smaller True
                             , vary Primary True
@@ -376,6 +406,18 @@ view ({ currentLetter, choices, state, counter, mode, correct, answered, game, t
                         ]
 
 
+averageTime : Game -> Float -> Float
+averageTime game timeTaken =
+    game
+        |> sizeForGame
+        |> toFloat
+        |> (/) timeTaken
+        |> (*) 100
+        |> round
+        |> toFloat
+        |> (flip (/)) 100
+
+
 copyrightNotice : Elem
 copyrightNotice =
     screen <|
@@ -383,19 +425,26 @@ copyrightNotice =
             text "© Augustin Ragon 2017 - Tous droits réservés"
 
 
-toggleButton : (Model -> value) -> value -> (value -> Msg) -> String -> Model -> Elem
-toggleButton accessor value msg label model =
+toggleButtonWithVars : List (Element.Attribute Variations Msg) -> (Model -> value) -> value -> (value -> Msg) -> String -> Model -> Elem
+toggleButtonWithVars vars accessor value msg label model =
     el Button
-        [ vary Smaller True
-        , vary Primary True
-        , vary Unselected (accessor model /= value)
-        , padding 10
-        , onClick <| msg value
-        , width fill
-        ]
+        ([ vary Smaller True
+         , vary Primary True
+         , vary Unselected (accessor model /= value)
+         , padding 10
+         , onClick <| msg value
+         , width fill
+         ]
+            ++ vars
+        )
     <|
         el Default [ center ] <|
             text label
+
+
+toggleButton : (Model -> value) -> value -> (value -> Msg) -> String -> Model -> Elem
+toggleButton accessor value msg label model =
+    toggleButtonWithVars [] accessor value msg label model
 
 
 modeSelect : Model -> Elem
@@ -430,9 +479,9 @@ difficultySelect model =
         el Default (h ++ [ width fill ]) <|
             row Default
                 [ width fill ]
-                [ toggleButton .difficulty Easy SetDifficulty "Facile" model
-                , toggleButton .difficulty Medium SetDifficulty "Moyen" model
-                , toggleButton .difficulty Hard SetDifficulty "Difficile" model
+                [ toggleButtonWithVars [ vary Optional True ] .difficulty Easy SetDifficulty "Facile" model
+                , toggleButtonWithVars [ vary Optional True ] .difficulty Medium SetDifficulty "Moyen" model
+                , toggleButtonWithVars [ vary Optional True ] .difficulty Hard SetDifficulty "Difficile" model
                 ]
 
 
@@ -455,15 +504,15 @@ homeButton =
             text "<<"
 
 
-progressBar : Difficulty -> Int -> Elem
+progressBar : Difficulty -> Float -> Elem
 progressBar difficulty counter =
     el Default [ width (percent 100), alignBottom ] <|
-        el Bar [ width <| percent <| (toFloat counter * 100 / toFloat (counterForDifficulty difficulty)) ] <|
+        el Bar [ width <| percent <| (counter * 100 / (counterForDifficulty difficulty)) ] <|
             text " "
 
 
 viewResult : Model -> Elem
-viewResult { result, currentLetter, mode } =
+viewResult { result, currentLetter, mode, difficulty } =
     case result of
         NotAnswered ->
             empty
@@ -487,7 +536,7 @@ viewResult { result, currentLetter, mode } =
                 el Default [ center, height fill, width fill ] <|
                     column Default
                         [ height fill, verticalSpread, width fill ]
-                        [ el Default [ height <| px <| defSize + 10 ] <|
+                        [ el Default [ height <| px <| (sizeForDifficulty difficulty) + 10 ] <|
                             viewAnswer mode currentLetter
                         , el Default [ vary Secondary True, center ] <|
                             text comment
@@ -540,27 +589,27 @@ viewAnswers { mode, choices, difficulty, counter } =
         column Default
             [ height fill, width fill ]
             [ progressBar difficulty counter
-            , answers mode choices
+            , answers difficulty mode choices
             ]
 
 
-answers : Mode -> List String -> Elem
-answers mode choices =
+answers : Difficulty -> Mode -> List String -> Elem
+answers difficulty mode choices =
     el Default [ center, width fill ] <|
         EK.wrappedRow Default [ alignBottom, width fill ] <|
-            List.indexedMap (viewChoice mode) <|
+            List.indexedMap (viewChoice difficulty mode) <|
                 choices
 
 
-viewChoice : Mode -> Int -> String -> ( String, Elem )
-viewChoice mode index choice =
+viewChoice : Difficulty -> Mode -> Int -> String -> ( String, Elem )
+viewChoice difficulty mode index choice =
     case mode of
         RecognizeSign ->
             choice
                 |> text
                 |> el Jumbo [ center, verticalCenter ]
                 |> button Button
-                    [ height <| px <| defSize + 10
+                    [ height <| px <| (sizeForDifficulty difficulty) + 10
                     , width (percent 50)
                     , onClick (Answer choice)
                     , vary Secondary True
@@ -579,12 +628,12 @@ viewChoice mode index choice =
                         image Default
                             [ center
                             , verticalCenter
-                            , height (px defSize)
+                            , height (px (sizeForDifficulty difficulty))
                             ]
                             { src = sign, caption = description }
                    )
                 |> button Button
-                    [ height <| px <| defSize + 10
+                    [ height <| px <| (sizeForDifficulty difficulty) + 10
                     , width (percent 50)
                     , onClick (Answer choice)
                     , vary White True
@@ -603,6 +652,7 @@ init =
       , userChoice = ""
       , currentLetter = emptyLetter
       , questions = []
+      , answers = []
       , choices = []
       , seed = Random.initialSeed 0
       , time = 0
@@ -621,7 +671,7 @@ init =
 subs : Model -> Sub Msg
 subs { state, game } =
     if state == Question && game == Challenge then
-        Time.every Time.second Tick
+        Time.every (100 * Time.millisecond) Tick
     else
         Sub.none
 
@@ -704,6 +754,14 @@ raven =
     Color.rgba 58 62 64 1
 
 
+sizeForDifficulty : Difficulty -> Float
+sizeForDifficulty difficulty =
+    if difficulty == Hard then
+        100
+    else
+        150
+
+
 defSize : Float
 defSize =
     150
@@ -752,9 +810,10 @@ stylesheet =
             , variation Right [ Border.right 1 ]
             , variation Left [ Border.left 1 ]
             , variation Unselected [ SF.opacity 90 ]
+            , variation Optional [ Font.size (scaled 1) ]
             ]
         , style Bar
             [ SC.background lighterDaisy
-            , Transition.transitions [ { delay = 0, duration = 1000, easing = "linear", props = [ "width" ] } ]
+            , Transition.transitions [ { delay = 0, duration = 100, easing = "linear", props = [ "width" ] } ]
             ]
         ]
