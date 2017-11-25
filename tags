@@ -30,6 +30,7 @@ Border	src/elm/Main.elm	/^import Style.Border as Border$/;"	n
 Bottom	src/elm/Main.elm	/^    | Bottom$/;"	c	type:Variations
 Button	src/elm/Main.elm	/^    | Button$/;"	c	type:Styles
 CancelConfig	src/elm/Views/Order.elm	/^type alias CancelConfig msg =$/;"	a
+Challenge	src/elm/Main.elm	/^    | Challenge$/;"	c	type:Game
 Config	src/elm/Search.elm	/^type alias Config msg =$/;"	a
 Config	src/elm/Views/Event.elm	/^type alias Config msg =$/;"	a
 Config	src/elm/Views/EventBill.elm	/^type alias Config msg =$/;"	a
@@ -37,7 +38,9 @@ Config	src/elm/Views/Order.elm	/^type alias Config msg =$/;"	a
 Config	src/elm/Views/Organizer.elm	/^type alias Config msg =$/;"	a
 Correct	src/elm/Main.elm	/^    = Correct$/;"	c	type:Result
 Default	src/elm/Main.elm	/^    = Default$/;"	c	type:Styles
+Difficulty	src/elm/Main.elm	/^type Difficulty$/;"	t
 EK	src/elm/Main.elm	/^import Element.Keyed as EK$/;"	n
+Easy	src/elm/Main.elm	/^    = Easy$/;"	c	type:Difficulty
 Elem	src/elm/Main.elm	/^type alias Elem =$/;"	a
 Event	src/elm/Data/Event.elm	/^type alias Event =$/;"	a
 EventBill	src/elm/Data/EventBill.elm	/^type alias EventBill =$/;"	a
@@ -47,8 +50,10 @@ Events	src/elm/Data/Event.elm	/^type alias Events =$/;"	a
 Filter	src/elm/Data/Filters.elm	/^type alias Filter =$/;"	a
 FilterValue	src/elm/Data/Filters.elm	/^type alias FilterValue =$/;"	a
 Font	src/elm/Main.elm	/^import Style.Font as Font$/;"	n
+Game	src/elm/Main.elm	/^type Game$/;"	t
 GenerateQuestion Mode	src/elm/Main.elm	/^    | GenerateQuestion Mode$/;"	c	type:Msg
 GoHome	src/elm/Main.elm	/^    | GoHome$/;"	c	type:Msg
+Hard	src/elm/Main.elm	/^    | Hard$/;"	c	type:Difficulty
 Home	src/elm/Main.elm	/^    = Home$/;"	c	type:State
 Incorrect	src/elm/Main.elm	/^    | Incorrect$/;"	c	type:Result
 Jumbo	src/elm/Main.elm	/^    | Jumbo$/;"	c	type:Styles
@@ -61,6 +66,7 @@ Main	src/elm/Main.elm	/^    | Main$/;"	c	type:Styles
 Main	src/elm/Main.elm	/^module Main exposing (..)$/;"	m
 Main.elm	src/Main.elm	1;"	F
 Main.elm	src/elm/Main.elm	1;"	F
+Medium	src/elm/Main.elm	/^    | Medium$/;"	c	type:Difficulty
 Mode	src/elm/Main.elm	/^type Mode$/;"	t
 Model	src/elm/Main.elm	/^type alias Model =$/;"	a
 Model	src/elm/Pages/Dialog.elm	/^type alias Model =$/;"	a
@@ -71,7 +77,6 @@ Model	src/elm/Pages/Organizer.elm	/^type alias Model =$/;"	a
 Model	src/elm/Pages/Organizers.elm	/^type alias Model =$/;"	a
 Msg	src/elm/Main.elm	/^type Msg$/;"	t
 NoOp	src/elm/Main.elm	/^    = NoOp$/;"	c	type:Msg
-None	src/elm/Main.elm	/^    = None$/;"	c	type:Variations
 NotAnswered	src/elm/Main.elm	/^    | NotAnswered$/;"	c	type:Result
 Order	src/elm/Data/Order.elm	/^type alias Order =$/;"	a
 OrderStatus	src/elm/Data/Order.elm	/^type OrderStatus$/;"	t
@@ -87,12 +92,17 @@ Responsibility	src/elm/Data/Order.elm	/^type Responsibility$/;"	t
 Result	src/elm/Main.elm	/^type Result$/;"	t
 Right	src/elm/Main.elm	/^    | Right$/;"	c	type:Variations
 SC	src/elm/Main.elm	/^import Style.Color as SC$/;"	n
+SF	src/elm/Main.elm	/^import Style.Filter as SF$/;"	n
 Scale	src/elm/Main.elm	/^import Style.Scale as Scale$/;"	n
 Score	src/elm/Main.elm	/^    | Score$/;"	c	type:State
 Secondary	src/elm/Main.elm	/^    | Secondary$/;"	c	type:Variations
 SelectSign	src/elm/Main.elm	/^    | SelectSign$/;"	c	type:Mode
+Selected	src/elm/Main.elm	/^    | Selected$/;"	c	type:Variations
 SelectedFilter	src/elm/Data/Filters.elm	/^type alias SelectedFilter =$/;"	a
-Smaller	src/elm/Main.elm	/^    | Smaller$/;"	c	type:Variations
+SetDifficulty Difficulty	src/elm/Main.elm	/^    | SetDifficulty Difficulty$/;"	c	type:Msg
+SetGame Game	src/elm/Main.elm	/^    | SetGame Game$/;"	c	type:Msg
+SetMode Mode	src/elm/Main.elm	/^    | SetMode Mode$/;"	c	type:Msg
+Smaller	src/elm/Main.elm	/^    = Smaller$/;"	c	type:Variations
 Smallest	src/elm/Main.elm	/^    | Smallest$/;"	c	type:Variations
 State	src/elm/Main.elm	/^type State$/;"	t
 Styles	src/elm/Main.elm	/^type Styles$/;"	t
@@ -100,6 +110,7 @@ Tick Time	src/elm/Main.elm	/^    | Tick Time$/;"	c	type:Msg
 Timeout	src/elm/Main.elm	/^    | Timeout$/;"	c	type:Result
 Today Time	src/elm/Main.elm	/^    | Today Time$/;"	c	type:Msg
 Top	src/elm/Main.elm	/^    | Top$/;"	c	type:Variations
+Training	src/elm/Main.elm	/^    = Training$/;"	c	type:Game
 Transition	src/elm/Main.elm	/^import Style.Transition as Transition$/;"	n
 Truc	src/elm/Data/EventBill.elm	/^type alias Truc =$/;"	a
 Url	src/elm/Main.elm	/^type alias Url =$/;"	a
@@ -144,6 +155,7 @@ comment	src/elm/Main.elm	/^                comment =$/;"	f	function:viewScore
 copy-webpack-plugin	package.json	/^    "copy-webpack-plugin": "^4.0.1",$/;"	s	object:devDependencies
 copyrightNotice	src/elm/Main.elm	/^copyrightNotice =$/;"	f
 correct	src/elm/Main.elm	/^                correct =$/;"	f	function:update
+counterForDifficulty	src/elm/Main.elm	/^counterForDifficulty diff =$/;"	f
 darkestIndigo	src/elm/Main.elm	/^darkestIndigo =$/;"	f
 defSize	src/elm/Main.elm	/^defSize =$/;"	f
 defaultQuery	src/elm/Data/Filters.elm	/^defaultQuery : Query$/;"	c
@@ -153,6 +165,7 @@ description	node_modules/elm-assets-loader/package.json	/^  "description": "webp
 description	package.json	/^  "description": "LSF Alphabet Quizz",$/;"	s
 devDependencies	node_modules/elm-assets-loader/package.json	/^  "devDependencies": {$/;"	o
 devDependencies	package.json	/^  "devDependencies": {$/;"	o
+difficultySelect	src/elm/Main.elm	/^difficultySelect model =$/;"	f
 downloadBillUrl	src/elm/Views/EventBill.elm	/^downloadBillUrl : EventBill -> String$/;"	f
 elm	node_modules/elm-assets-loader/package.json	/^    "elm": "0.17.1 - 0.18.0",$/;"	s	object:devDependencies
 elm	package.json	/^    "elm": "^0.18.0",$/;"	s	object:devDependencies
@@ -192,9 +205,12 @@ fetchOrganizer	src/elm/Requests/Organizer.elm	/^fetchOrganizer : Model -> String
 fetchOrganizers	src/elm/Requests/Organizer.elm	/^fetchOrganizers : Model -> Cmd Msg$/;"	f
 file-loader	node_modules/elm-assets-loader/package.json	/^    "file-loader": "^0.9.0",$/;"	s	object:devDependencies
 files	node_modules/elm-assets-loader/package.json	/^  "files": [$/;"	a
+gameSelect	src/elm/Main.elm	/^gameSelect model =$/;"	f
 getNow	src/elm/Main.elm	/^getNow =$/;"	f
 glob	package.json	/^    "glob": "^5.0.14",$/;"	s	object:devDependencies
 goBackLink	src/elm/Utils.elm	/^goBackLink : msg -> Html msg$/;"	f
+goButton	src/elm/Main.elm	/^goButton =$/;"	f
+h	src/elm/Main.elm	/^        h =$/;"	f	function:difficultySelect
 homeButton	src/elm/Main.elm	/^homeButton =$/;"	f
 homepage	node_modules/elm-assets-loader/package.json	/^  "homepage": "https:\/\/github.com\/NoRedInk\/elm-assets-loader#readme",$/;"	s
 html-webpack-plugin	package.json	/^    "html-webpack-plugin": "^2.17.0",$/;"	s	object:devDependencies
@@ -247,6 +263,7 @@ main	src/Main.elm	/^main =$/;"	f
 main	src/elm/Main.elm	/^main =$/;"	f
 match	src/elm/Main.elm	/^                match =$/;"	f	function:update
 memory-fs	node_modules/elm-assets-loader/package.json	/^    "memory-fs": "^0.3.0",$/;"	s	object:devDependencies
+modeSelect	src/elm/Main.elm	/^modeSelect model =$/;"	f
 name	node_modules/elm-assets-loader/package.json	/^  "name": "elm-assets-loader",$/;"	s
 name	package.json	/^  "name": "lsf-quizz",$/;"	s
 newCount	src/elm/Main.elm	/^                        newCount =$/;"	f	function:update
@@ -302,6 +319,7 @@ tableCustomizations	src/elm/Utils.elm	/^tableCustomizations : Table.Customizatio
 test	node_modules/elm-assets-loader/package.json	/^    "test": "WEBPACK_VERSION=$(.\/node_modules\/.bin\/webpack --version) .\/node_modules\/.bin\//;"	s	object:scripts
 timeout	src/elm/Main.elm	/^                        timeout =$/;"	f	function:update
 titleRow	src/elm/Views/EventBill.elm	/^titleRow : String -> String -> Html msg$/;"	f
+toggleButton	src/elm/Main.elm	/^toggleButton accessor value msg label model =$/;"	f
 totalRow	src/elm/Views/EventBill.elm	/^totalRow : String -> String -> Html msg$/;"	f
 type	node_modules/elm-assets-loader/package.json	/^    "type": "git",$/;"	s	object:repository
 update	src/elm/Main.elm	/^update msg model =$/;"	f

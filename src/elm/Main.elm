@@ -11,6 +11,7 @@ import Style.Scale as Scale
 import Style.Border as Border
 import Style.Transition as Transition
 import Style.Color as SC
+import Style.Filter as SF
 import Color
 import Dict exposing (Dict)
 import Random exposing (Seed)
@@ -28,6 +29,9 @@ type Msg
     | GenerateQuestion Mode
     | Answer String
     | GoHome
+    | SetMode Mode
+    | SetDifficulty Difficulty
+    | SetGame Game
 
 
 type alias Model =
@@ -42,6 +46,8 @@ type alias Model =
     , correct : Int
     , state : State
     , counter : Int
+    , difficulty : Difficulty
+    , game : Game
     }
 
 
@@ -63,6 +69,30 @@ type alias Url =
 type Mode
     = RecognizeSign
     | SelectSign
+
+
+type Game
+    = Training
+    | Challenge
+
+
+type Difficulty
+    = Easy
+    | Medium
+    | Hard
+
+
+counterForDifficulty : Difficulty -> Int
+counterForDifficulty diff =
+    case diff of
+        Easy ->
+            20
+
+        Medium ->
+            10
+
+        Hard ->
+            5
 
 
 type State
@@ -87,8 +117,7 @@ type Styles
 
 
 type Variations
-    = None
-    | Smaller
+    = Smaller
     | Smallest
     | Larger
     | Top
@@ -98,6 +127,7 @@ type Variations
     | White
     | Primary
     | Secondary
+    | Selected
 
 
 type alias Elem =
@@ -119,6 +149,15 @@ update msg model =
     case Debug.log "msg" msg of
         NoOp ->
             model ! []
+
+        SetDifficulty diff ->
+            { model | difficulty = diff } ! []
+
+        SetGame game ->
+            { model | game = game } ! []
+
+        SetMode mode ->
+            { model | mode = mode } ! []
 
         GoHome ->
             { model | state = Home } ! []
@@ -193,7 +232,7 @@ update msg model =
                     , choices = choices
                     , result = NotAnswered
                     , state = Question
-                    , counter = 10
+                    , counter = counterForDifficulty model.difficulty
                     , mode = mode
                 }
                     ! []
@@ -241,14 +280,14 @@ view ({ currentLetter, choices, state, counter, mode } as model) =
                 Home ->
                     el Default [ verticalCenter, center ] <|
                         column Default
-                            [ spacingXY 0 20 ]
+                            [ spacing 20 ]
                             [ el Default [ vary Larger True ] <|
-                                text "Bienvenue !"
+                                text "Quizz LSF"
                             , spacer 4
-                            , button Button [ vary Smaller True, vary Primary True, padding 10, onClick <| GenerateQuestion RecognizeSign ] <|
-                                text "Reconnaître un signe"
-                            , button Button [ vary Smaller True, vary Primary True, padding 10, onClick <| GenerateQuestion SelectSign ] <|
-                                text "Choisir le bon signe"
+                            , modeSelect model
+                            , gameSelect model
+                            , difficultySelect model
+                            , goButton
                             , copyrightNotice
                             ]
 
@@ -274,6 +313,70 @@ copyrightNotice =
     screen <|
         el Default [ alignRight, alignBottom, padding 10, vary Secondary True, vary Smallest True ] <|
             text "© Augustin Ragon 2017 - Tous droits réservés"
+
+
+toggleButton : (Model -> value) -> value -> (value -> Msg) -> String -> Model -> Elem
+toggleButton accessor value msg label model =
+    button Button
+        [ vary Smaller True
+        , vary Primary True
+        , vary Selected (accessor model == value)
+        , padding 10
+        , onClick <| msg value
+        , width fill
+        ]
+    <|
+        text label
+
+
+modeSelect : Model -> Elem
+modeSelect model =
+    el Default [ width fill ] <|
+        row Default
+            [ width fill ]
+            [ toggleButton .mode RecognizeSign SetMode "Reconnaître" model
+            , toggleButton .mode SelectSign SetMode "Trouver" model
+            ]
+
+
+gameSelect : Model -> Elem
+gameSelect model =
+    el Default [ width fill ] <|
+        row Default
+            [ width fill ]
+            [ toggleButton .game Training SetGame "Entraînement" model
+            , toggleButton .game Challenge SetGame "Jeu" model
+            ]
+
+
+difficultySelect : Model -> Elem
+difficultySelect model =
+    let
+        h =
+            if model.game == Training then
+                [ inlineStyle [ ( "visibility", "hidden" ) ] ]
+            else
+                []
+    in
+        el Default (h ++ [ width fill ]) <|
+            row Default
+                [ width fill ]
+                [ toggleButton .difficulty Easy SetDifficulty "Facile" model
+                , toggleButton .difficulty Medium SetDifficulty "Moyen" model
+                , toggleButton .difficulty Hard SetDifficulty "Difficile" model
+                ]
+
+
+goButton : Elem
+goButton =
+    button Button
+        [ vary Smaller True
+        , vary Primary True
+        , padding 10
+        , onClick <| GenerateQuestion RecognizeSign
+        ]
+    <|
+        text "Jouer !"
 
 
 homeButton : Elem
@@ -440,6 +543,8 @@ init =
       , answered = 0
       , correct = 0
       , counter = 0
+      , difficulty = Medium
+      , game = Challenge
       }
     , getNow
     )
@@ -578,6 +683,7 @@ stylesheet =
             , variation Bottom [ Border.bottom 1 ]
             , variation Right [ Border.right 1 ]
             , variation Left [ Border.left 1 ]
+            , variation Selected [ SF.opacity 90 ]
             ]
         , style Bar
             [ SC.background lighterDaisy
