@@ -536,7 +536,7 @@ viewResult { result, currentLetter, mode, difficulty } =
                 el Default [ center, height fill, width fill ] <|
                     column Default
                         [ height fill, verticalSpread, width fill ]
-                        [ el Default [ height <| px <| (sizeForDifficulty difficulty) + 10 ] <|
+                        [ el Default [ height <| px <| defSize + 10 ] <|
                             viewAnswer mode currentLetter
                         , el Default [ vary Secondary True, center ] <|
                             text comment
