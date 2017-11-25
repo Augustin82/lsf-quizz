@@ -26,7 +26,8 @@ type Msg
     = NoOp
     | Tick Time
     | Today Time
-    | GenerateQuestion Mode
+    | StartGame
+    | NextQuestion
     | Answer String
     | GoHome
     | SetMode Mode
@@ -36,6 +37,7 @@ type Msg
 
 type alias Model =
     { currentLetter : Letter
+    , questions : List String
     , userChoice : String
     , choices : List String
     , mode : Mode
@@ -44,6 +46,7 @@ type alias Model =
     , result : Result
     , answered : Int
     , correct : Int
+    , timeTaken : Int
     , state : State
     , counter : Int
     , difficulty : Difficulty
@@ -95,9 +98,20 @@ counterForDifficulty diff =
             5
 
 
+sizeForGame : Game -> Int
+sizeForGame game =
+    case game of
+        Training ->
+            2
+
+        Challenge ->
+            10
+
+
 type State
     = Home
     | Question
+    | Result
     | Score
 
 
@@ -127,7 +141,7 @@ type Variations
     | White
     | Primary
     | Secondary
-    | Selected
+    | Unselected
 
 
 type alias Elem =
@@ -193,7 +207,7 @@ update msg model =
 
                         state =
                             if timeout then
-                                Score
+                                Result
                             else
                                 model.state
                     in
@@ -208,39 +222,65 @@ update msg model =
                 _ ->
                     model ! []
 
-        GenerateQuestion mode ->
+        StartGame ->
             let
-                lettersWithoutLast =
-                    lettersDict
-                        |> Dict.remove model.currentLetter.name
-                        |> Dict.remove model.userChoice
-                        |> Dict.keys
+                size =
+                    sizeForGame model.game
 
-                ( choices, newSeed1 ) =
-                    lettersWithoutLast
+                ( questions, seed1 ) =
+                    lettersList
                         |> Random.List.shuffle
-                        |> Random.map (List.take 4)
+                        |> Random.map (List.take size)
+                        |> Random.map (List.map Tuple.first)
                         |> (flip Random.step) model.seed
 
-                ( ( randomLetter, _ ), newSeed2 ) =
-                    choices
-                        |> Random.List.choose
-                        |> (flip Random.step) newSeed1
+                startedModel =
+                    { model
+                        | questions = questions
+                        , seed = seed1
+                    }
             in
-                { model
-                    | seed = newSeed2
-                    , currentLetter =
-                        randomLetter
-                            |> Maybe.withDefault ""
-                            |> (flip Dict.get) lettersDict
-                            |> Maybe.withDefault emptyLetter
-                    , choices = choices
-                    , result = NotAnswered
-                    , state = Question
-                    , counter = counterForDifficulty model.difficulty
-                    , mode = mode
-                }
-                    ! []
+                update NextQuestion startedModel
+
+        NextQuestion ->
+            case model.questions of
+                [] ->
+                    { model | state = Score } ! []
+
+                letter :: questions ->
+                    let
+                        currentLetter =
+                            Dict.get letter lettersDict
+                                |> Maybe.withDefault emptyLetter
+
+                        lettersWithoutLast =
+                            lettersDict
+                                |> Dict.remove letter
+                                |> Dict.remove model.userChoice
+                                |> Dict.keys
+
+                        ( cs, newSeed1 ) =
+                            lettersWithoutLast
+                                |> Random.List.shuffle
+                                |> Random.map (List.take 3)
+                                |> (flip Random.step) model.seed
+
+                        ( choices, newSeed2 ) =
+                            cs
+                                |> (::) letter
+                                |> Random.List.shuffle
+                                |> (flip Random.step) newSeed1
+                    in
+                        { model
+                            | seed = newSeed2
+                            , currentLetter = currentLetter
+                            , questions = questions
+                            , choices = choices
+                            , result = NotAnswered
+                            , state = Question
+                            , counter = counterForDifficulty model.difficulty
+                        }
+                            ! []
 
         Answer userChoice ->
             let
@@ -252,6 +292,9 @@ update msg model =
                         Correct
                     else
                         Incorrect
+
+                timeTaken =
+                    model.timeTaken + (counterForDifficulty model.difficulty - model.counter)
 
                 answered =
                     model.answered + 1
@@ -269,7 +312,8 @@ update msg model =
                     , result = result
                     , answered = answered
                     , correct = correct
-                    , state = Score
+                    , state = Result
+                    , timeTaken = timeTaken
                 }
                     ! []
 
@@ -278,7 +322,7 @@ update msg model =
 
 
 view : Model -> Html Msg
-view ({ currentLetter, choices, state, counter, mode } as model) =
+view ({ currentLetter, choices, state, counter, mode, correct, answered, game, timeTaken } as model) =
     viewport stylesheet <|
         el Main [ height fill, width fill, clipX, clipY ] <|
             case state of
@@ -288,10 +332,11 @@ view ({ currentLetter, choices, state, counter, mode } as model) =
                             [ spacing 20 ]
                             [ el Default [ vary Larger True ] <|
                                 text "Quizz LSF"
-                            , spacer 4
+                            , spacer 3
                             , modeSelect model
                             , gameSelect model
                             , difficultySelect model
+                            , spacer 3
                             , goButton
                             , copyrightNotice
                             ]
@@ -304,11 +349,29 @@ view ({ currentLetter, choices, state, counter, mode } as model) =
                         , homeButton
                         ]
 
-                Score ->
+                Result ->
                     column Default
                         [ height fill, width fill, verticalSpread ]
                         [ viewQuestion mode currentLetter
-                        , viewScore model
+                        , viewResult model
+                        , homeButton
+                        ]
+
+                Score ->
+                    column Default
+                        [ height fill, width fill, verticalSpread ]
+                        [ el Default [ vary Secondary True, center, paddingXY 10 20 ] <|
+                            text ("Score : " ++ toString correct ++ "/" ++ toString answered)
+                        , el Default [ vary Secondary True, center, paddingXY 10 20 ] <|
+                            text ("Temps moyen : " ++ (toString <| (//) (sizeForGame game) <| timeTaken))
+                        , button Button
+                            [ vary Smaller True
+                            , vary Primary True
+                            , padding 10
+                            , onClick StartGame
+                            ]
+                          <|
+                            text "Rejouer"
                         , homeButton
                         ]
 
@@ -325,7 +388,7 @@ toggleButton accessor value msg label model =
     el Button
         [ vary Smaller True
         , vary Primary True
-        , vary Selected (accessor model == value)
+        , vary Unselected (accessor model /= value)
         , padding 10
         , onClick <| msg value
         , width fill
@@ -379,7 +442,7 @@ goButton =
         [ vary Smaller True
         , vary Primary True
         , padding 10
-        , onClick <| GenerateQuestion RecognizeSign
+        , onClick StartGame
         ]
     <|
         text "Jouer !"
@@ -399,8 +462,8 @@ progressBar difficulty counter =
             text " "
 
 
-viewScore : Model -> Elem
-viewScore { result, answered, correct, currentLetter, mode } =
+viewResult : Model -> Elem
+viewResult { result, currentLetter, mode } =
     case result of
         NotAnswered ->
             empty
@@ -428,13 +491,10 @@ viewScore { result, answered, correct, currentLetter, mode } =
                             viewAnswer mode currentLetter
                         , el Default [ vary Secondary True, center ] <|
                             text comment
-                        , el Default [ vary Secondary True, center, paddingXY 10 20 ] <|
-                            text ("Score : " ++ toString correct ++ "/" ++ toString answered)
                         , button Button
                             [ padding 10
                             , vary Primary True
-                            , onClick <|
-                                GenerateQuestion mode
+                            , onClick NextQuestion
                             ]
                           <|
                             text "Suivant >>"
@@ -542,12 +602,14 @@ init =
       , state = Home
       , userChoice = ""
       , currentLetter = emptyLetter
+      , questions = []
       , choices = []
       , seed = Random.initialSeed 0
       , time = 0
       , result = NotAnswered
       , answered = 0
       , correct = 0
+      , timeTaken = 0
       , counter = 0
       , difficulty = Medium
       , game = Challenge
@@ -689,7 +751,7 @@ stylesheet =
             , variation Bottom [ Border.bottom 1 ]
             , variation Right [ Border.right 1 ]
             , variation Left [ Border.left 1 ]
-            , variation Selected [ SF.opacity 90 ]
+            , variation Unselected [ SF.opacity 90 ]
             ]
         , style Bar
             [ SC.background lighterDaisy

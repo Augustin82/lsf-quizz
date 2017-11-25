@@ -51,7 +51,6 @@ Filter	src/elm/Data/Filters.elm	/^type alias Filter =$/;"	a
 FilterValue	src/elm/Data/Filters.elm	/^type alias FilterValue =$/;"	a
 Font	src/elm/Main.elm	/^import Style.Font as Font$/;"	n
 Game	src/elm/Main.elm	/^type Game$/;"	t
-GenerateQuestion Mode	src/elm/Main.elm	/^    | GenerateQuestion Mode$/;"	c	type:Msg
 GoHome	src/elm/Main.elm	/^    | GoHome$/;"	c	type:Msg
 Hard	src/elm/Main.elm	/^    | Hard$/;"	c	type:Difficulty
 Home	src/elm/Main.elm	/^    = Home$/;"	c	type:State
@@ -76,6 +75,7 @@ Model	src/elm/Pages/Orders.elm	/^type alias Model =$/;"	a
 Model	src/elm/Pages/Organizer.elm	/^type alias Model =$/;"	a
 Model	src/elm/Pages/Organizers.elm	/^type alias Model =$/;"	a
 Msg	src/elm/Main.elm	/^type Msg$/;"	t
+NextQuestion	src/elm/Main.elm	/^    | NextQuestion$/;"	c	type:Msg
 NoOp	src/elm/Main.elm	/^    = NoOp$/;"	c	type:Msg
 NotAnswered	src/elm/Main.elm	/^    | NotAnswered$/;"	c	type:Result
 Order	src/elm/Data/Order.elm	/^type alias Order =$/;"	a
@@ -89,6 +89,7 @@ Query	src/elm/Search.elm	/^type alias Query =$/;"	a
 Question	src/elm/Main.elm	/^    | Question$/;"	c	type:State
 RecognizeSign	src/elm/Main.elm	/^    = RecognizeSign$/;"	c	type:Mode
 Responsibility	src/elm/Data/Order.elm	/^type Responsibility$/;"	t
+Result	src/elm/Main.elm	/^    | Result$/;"	c	type:State
 Result	src/elm/Main.elm	/^type Result$/;"	t
 Right	src/elm/Main.elm	/^    | Right$/;"	c	type:Variations
 SC	src/elm/Main.elm	/^import Style.Color as SC$/;"	n
@@ -97,13 +98,13 @@ Scale	src/elm/Main.elm	/^import Style.Scale as Scale$/;"	n
 Score	src/elm/Main.elm	/^    | Score$/;"	c	type:State
 Secondary	src/elm/Main.elm	/^    | Secondary$/;"	c	type:Variations
 SelectSign	src/elm/Main.elm	/^    | SelectSign$/;"	c	type:Mode
-Selected	src/elm/Main.elm	/^    | Selected$/;"	c	type:Variations
 SelectedFilter	src/elm/Data/Filters.elm	/^type alias SelectedFilter =$/;"	a
 SetDifficulty Difficulty	src/elm/Main.elm	/^    | SetDifficulty Difficulty$/;"	c	type:Msg
 SetGame Game	src/elm/Main.elm	/^    | SetGame Game$/;"	c	type:Msg
 SetMode Mode	src/elm/Main.elm	/^    | SetMode Mode$/;"	c	type:Msg
 Smaller	src/elm/Main.elm	/^    = Smaller$/;"	c	type:Variations
 Smallest	src/elm/Main.elm	/^    | Smallest$/;"	c	type:Variations
+StartGame	src/elm/Main.elm	/^    | StartGame$/;"	c	type:Msg
 State	src/elm/Main.elm	/^type State$/;"	t
 Styles	src/elm/Main.elm	/^type Styles$/;"	t
 Tick Time	src/elm/Main.elm	/^    | Tick Time$/;"	c	type:Msg
@@ -113,6 +114,7 @@ Top	src/elm/Main.elm	/^    | Top$/;"	c	type:Variations
 Training	src/elm/Main.elm	/^    = Training$/;"	c	type:Game
 Transition	src/elm/Main.elm	/^import Style.Transition as Transition$/;"	n
 Truc	src/elm/Data/EventBill.elm	/^type alias Truc =$/;"	a
+Unselected	src/elm/Main.elm	/^    | Unselected$/;"	c	type:Variations
 Url	src/elm/Main.elm	/^type alias Url =$/;"	a
 Variations	src/elm/Main.elm	/^type Variations$/;"	t
 White	src/elm/Main.elm	/^    | White$/;"	c	type:Variations
@@ -151,11 +153,12 @@ cleaninstall	package.json	/^    "cleaninstall": "yarn add rimraf && rimraf node_
 clickableRow	src/elm/Views/Event.elm	/^clickableRow : Config msg -> Event -> List (Attribute msg)$/;"	f
 clickableRow	src/elm/Views/Organizer.elm	/^clickableRow : Config msg -> Organizer -> List (Attribute msg)$/;"	f
 colNumber	src/elm/Views/EventBill.elm	/^colNumber : Int$/;"	c
-comment	src/elm/Main.elm	/^                comment =$/;"	f	function:viewScore
+comment	src/elm/Main.elm	/^                comment =$/;"	f	function:viewResult
 copy-webpack-plugin	package.json	/^    "copy-webpack-plugin": "^4.0.1",$/;"	s	object:devDependencies
 copyrightNotice	src/elm/Main.elm	/^copyrightNotice =$/;"	f
 correct	src/elm/Main.elm	/^                correct =$/;"	f	function:update
 counterForDifficulty	src/elm/Main.elm	/^counterForDifficulty diff =$/;"	f
+currentLetter	src/elm/Main.elm	/^                        currentLetter =$/;"	f	function:update
 darkestIndigo	src/elm/Main.elm	/^darkestIndigo =$/;"	f
 defSize	src/elm/Main.elm	/^defSize =$/;"	f
 defaultQuery	src/elm/Data/Filters.elm	/^defaultQuery : Query$/;"	c
@@ -249,7 +252,7 @@ letterY	src/elm/Assets.elm	/^letterY =$/;"	f
 letterZ	src/elm/Assets.elm	/^letterZ =$/;"	f
 lettersDict	src/elm/Main.elm	/^lettersDict =$/;"	f
 lettersList	src/elm/Main.elm	/^lettersList =$/;"	f
-lettersWithoutLast	src/elm/Main.elm	/^                lettersWithoutLast =$/;"	f	function:update
+lettersWithoutLast	src/elm/Main.elm	/^                        lettersWithoutLast =$/;"	f	function:update
 license	elm-package.json	/^    "license": "MIT",$/;"	s
 license	node_modules/elm-assets-loader/package.json	/^  "license": "BSD-3-Clause",$/;"	s
 license	package.json	/^  "license": "ISC",$/;"	s
@@ -305,10 +308,13 @@ scripts	package.json	/^  "scripts": {$/;"	o
 searchBox	src/elm/Search.elm	/^searchBox : Config msg -> Query -> Html msg$/;"	f
 semver	node_modules/elm-assets-loader/package.json	/^    "semver": "^5.3.0"$/;"	s	object:devDependencies
 sendEventBill	src/elm/Requests/EventBill.elm	/^sendEventBill : Model -> Cmd Msg$/;"	f
+size	src/elm/Main.elm	/^                size =$/;"	f	function:update
+sizeForGame	src/elm/Main.elm	/^sizeForGame game =$/;"	f
 sortByLegalPrivileged	src/elm/Views/EventBill.elm	/^sortByLegalPrivileged : BillOrderDetails -> BillOrderDetails$/;"	f
 source-directories	elm-package.json	/^    "source-directories": [$/;"	a
 spacerRow	src/elm/Utils.elm	/^spacerRow : Html msg$/;"	c
 start	package.json	/^    "start": "webpack-dev-server --hot --inline --host 0.0.0.0 --public 0.0.0.0:3002 --port 3002/;"	s	object:scripts
+startedModel	src/elm/Main.elm	/^                startedModel =$/;"	f	function:update
 state	src/elm/Main.elm	/^                        state =$/;"	f	function:update
 stylesheet	src/elm/Main.elm	/^stylesheet =$/;"	f
 subs	src/elm/Main.elm	/^subs { state, game } =$/;"	f
@@ -317,6 +323,7 @@ sw.js	src/static/sw.js	1;"	F
 sw.js	src/sw.js	1;"	F
 tableCustomizations	src/elm/Utils.elm	/^tableCustomizations : Table.Customizations data msg$/;"	c
 test	node_modules/elm-assets-loader/package.json	/^    "test": "WEBPACK_VERSION=$(.\/node_modules\/.bin\/webpack --version) .\/node_modules\/.bin\//;"	s	object:scripts
+timeTaken	src/elm/Main.elm	/^                timeTaken =$/;"	f	function:update
 timeout	src/elm/Main.elm	/^                        timeout =$/;"	f	function:update
 titleRow	src/elm/Views/EventBill.elm	/^titleRow : String -> String -> Html msg$/;"	f
 toggleButton	src/elm/Main.elm	/^toggleButton accessor value msg label model =$/;"	f
@@ -332,7 +339,7 @@ url-loader	package.json	/^    "url-loader": "^0.6.2",$/;"	s	object:devDependenci
 version	elm-package.json	/^    "version": "1.0.0",$/;"	s
 version	node_modules/elm-assets-loader/package.json	/^  "version": "0.3.0",$/;"	s
 version	package.json	/^  "version": "0.0.1",$/;"	s
-view	src/elm/Main.elm	/^view ({ currentLetter, choices, state, counter, mode } as model) =$/;"	f
+view	src/elm/Main.elm	/^view ({ currentLetter, choices, state, counter, mode, correct, answered, game, timeTaken } as mo/;"	f
 view	src/elm/Views/Event.elm	/^view : Config msg -> Table.State -> Events -> Html msg$/;"	f
 viewAnswer	src/elm/Main.elm	/^viewAnswer mode =$/;"	f
 viewAnswers	src/elm/Main.elm	/^viewAnswers { mode, choices, difficulty, counter } =$/;"	f
@@ -350,7 +357,7 @@ viewOrganizer	src/elm/Views/Organizer.elm	/^viewOrganizer : Config msg -> Organi
 viewOrganizers	src/elm/Views/Organizer.elm	/^viewOrganizers : Config msg -> Table.State -> Organizers -> Html msg$/;"	f
 viewOtherServices	src/elm/Views/EventBill.elm	/^viewOtherServices : EventBill -> Html msg$/;"	f
 viewQuestion	src/elm/Main.elm	/^viewQuestion mode =$/;"	f
-viewScore	src/elm/Main.elm	/^viewScore { result, answered, correct, currentLetter, mode } =$/;"	f
+viewResult	src/elm/Main.elm	/^viewResult { result, currentLetter, mode } =$/;"	f
 viewSummary	src/elm/Views/EventBill.elm	/^viewSummary : EventBill -> Html msg$/;"	f
 warnBalance	src/elm/Views/Event.elm	/^warnBalance : Event -> String$/;"	f
 webpack	node_modules/elm-assets-loader/package.json	/^    "webpack": ">=1.13.3 <4.0.0"$/;"	s	object:peerDependencies
