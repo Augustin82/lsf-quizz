@@ -290,7 +290,7 @@ plum	src/elm/Utils.elm	/^plum : String$/;"	c
 postinstall	package.json	/^    "postinstall": "yarn elm:install; mv node_modules\/.bin\/elm-make node_modules\/.bin\/elm-ma/;"	s	object:scripts
 preinstall	package.json	/^    "preinstall": "rm -rf node_modules\/",$/;"	s	object:scripts
 prettier	package.json	/^    "prettier": "^1.5.3",$/;"	s	object:devDependencies
-progressBar	src/elm/Main.elm	/^progressBar counter =$/;"	f
+progressBar	src/elm/Main.elm	/^progressBar difficulty counter =$/;"	f
 raven	src/elm/Main.elm	/^raven =$/;"	f
 reinstall	package.json	/^    "reinstall": "npm i rimraf && rimraf node_modules && npm uninstall -g elm && npm i -g elm &&/;"	s	object:scripts
 repository	elm-package.json	/^    "repository": "https:\/\/github.com\/moarwick\/elm-webpack-starter.git",$/;"	s
@@ -311,7 +311,7 @@ spacerRow	src/elm/Utils.elm	/^spacerRow : Html msg$/;"	c
 start	package.json	/^    "start": "webpack-dev-server --hot --inline --host 0.0.0.0 --public 0.0.0.0:3002 --port 3002/;"	s	object:scripts
 state	src/elm/Main.elm	/^                        state =$/;"	f	function:update
 stylesheet	src/elm/Main.elm	/^stylesheet =$/;"	f
-subs	src/elm/Main.elm	/^subs model =$/;"	f
+subs	src/elm/Main.elm	/^subs { state, game } =$/;"	f
 summary	elm-package.json	/^    "summary": "Example using `elm-webpack-loader`.",$/;"	s
 sw.js	src/static/sw.js	1;"	F
 sw.js	src/sw.js	1;"	F
@@ -335,7 +335,7 @@ version	package.json	/^  "version": "0.0.1",$/;"	s
 view	src/elm/Main.elm	/^view ({ currentLetter, choices, state, counter, mode } as model) =$/;"	f
 view	src/elm/Views/Event.elm	/^view : Config msg -> Table.State -> Events -> Html msg$/;"	f
 viewAnswer	src/elm/Main.elm	/^viewAnswer mode =$/;"	f
-viewAnswers	src/elm/Main.elm	/^viewAnswers { mode, choices, counter } =$/;"	f
+viewAnswers	src/elm/Main.elm	/^viewAnswers { mode, choices, difficulty, counter } =$/;"	f
 viewChoice	src/elm/Main.elm	/^viewChoice mode index choice =$/;"	f
 viewCollected	src/elm/Views/EventBill.elm	/^viewCollected : EventBill -> Html msg$/;"	f
 viewCommission	src/elm/Views/EventBill.elm	/^viewCommission : EventBill -> Html msg$/;"	f

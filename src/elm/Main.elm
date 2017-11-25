@@ -146,7 +146,7 @@ main =
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case Debug.log "msg" msg of
+    case msg of
         NoOp ->
             model ! []
 
@@ -160,7 +160,12 @@ update msg model =
             { model | mode = mode } ! []
 
         GoHome ->
-            { model | state = Home } ! []
+            { model
+                | state = Home
+                , answered = 0
+                , correct = 0
+            }
+                ! []
 
         Tick time ->
             case model.state of
@@ -317,7 +322,7 @@ copyrightNotice =
 
 toggleButton : (Model -> value) -> value -> (value -> Msg) -> String -> Model -> Elem
 toggleButton accessor value msg label model =
-    button Button
+    el Button
         [ vary Smaller True
         , vary Primary True
         , vary Selected (accessor model == value)
@@ -326,7 +331,8 @@ toggleButton accessor value msg label model =
         , width fill
         ]
     <|
-        text label
+        el Default [ center ] <|
+            text label
 
 
 modeSelect : Model -> Elem
@@ -386,10 +392,10 @@ homeButton =
             text "<<"
 
 
-progressBar : Int -> Elem
-progressBar counter =
+progressBar : Difficulty -> Int -> Elem
+progressBar difficulty counter =
     el Default [ width (percent 100), alignBottom ] <|
-        el Bar [ width <| percent <| toFloat <| counter * 10 ] <|
+        el Bar [ width <| percent <| (toFloat counter * 100 / toFloat (counterForDifficulty difficulty)) ] <|
             text " "
 
 
@@ -469,11 +475,11 @@ imageForLetter { sign, description } =
 
 
 viewAnswers : Model -> Elem
-viewAnswers { mode, choices, counter } =
+viewAnswers { mode, choices, difficulty, counter } =
     el Default [ center, width fill ] <|
         column Default
             [ height fill, width fill ]
-            [ progressBar counter
+            [ progressBar difficulty counter
             , answers mode choices
             ]
 
@@ -551,8 +557,8 @@ init =
 
 
 subs : Model -> Sub Msg
-subs model =
-    if model.state == Question then
+subs { state, game } =
+    if state == Question && game == Challenge then
         Time.every Time.second Tick
     else
         Sub.none
