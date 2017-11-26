@@ -622,10 +622,10 @@ viewResult { result, currentLetter, mode, difficulty, handedness } =
                 el Default [ center, height fill, width fill ] <|
                     column Default
                         [ height fill, verticalSpread, width fill ]
-                        [ el Default [ height <| px <| defSize + 10 ] <|
-                            viewAnswer handedness mode currentLetter
-                        , el Default [ vary Secondary True, center ] <|
+                        [ el Default [ padding 40, vary Secondary True, center ] <|
                             text comment
+                        , el Default [ height <| px <| defSize + 10 ] <|
+                            viewAnswer handedness mode currentLetter
                         , button Button
                             [ padding 10
                             , vary Primary True
