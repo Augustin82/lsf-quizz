@@ -33,6 +33,7 @@ type Msg
     | SetMode Mode
     | SetDifficulty Difficulty
     | SetGame Game
+    | SetHandedness Handedness
 
 
 type alias Model =
@@ -52,6 +53,7 @@ type alias Model =
     , counter : Float
     , difficulty : Difficulty
     , game : Game
+    , handedness : Handedness
     }
 
 
@@ -93,6 +95,11 @@ type Difficulty
     | Hard
 
 
+type Handedness
+    = Lefty
+    | Righty
+
+
 counterForDifficulty : Difficulty -> Float
 counterForDifficulty diff =
     case diff of
@@ -123,7 +130,7 @@ sizeForGame : Game -> Int
 sizeForGame game =
     case game of
         Training ->
-            2
+            26
 
         Challenge ->
             10
@@ -194,6 +201,9 @@ update msg model =
 
         SetMode mode ->
             { model | mode = mode } ! []
+
+        SetHandedness handedness ->
+            { model | handedness = handedness } ! []
 
         GoHome ->
             { model
@@ -352,29 +362,32 @@ update msg model =
 
 
 view : Model -> Html Msg
-view ({ currentLetter, choices, state, counter, mode, correct, answered, game, timeTaken } as model) =
+view ({ currentLetter, choices, state, counter, mode, correct, answered, game, timeTaken, handedness } as model) =
     viewport stylesheet <|
         el Main [ height fill, width fill, clipX, clipY ] <|
             case state of
                 Home ->
-                    el Default [ verticalCenter, center ] <|
+                    el Default [ verticalCenter, center, width (percent 90) ] <|
                         column Default
-                            [ spacing 20 ]
-                            [ el Default [ vary Larger True ] <|
+                            [ spacing 15 ]
+                            [ spacer 1
+                            , el Default [ vary Larger True ] <|
                                 text "Quizz LSF"
-                            , spacer 3
+                            , spacer 2
                             , modeSelect model
                             , gameSelect model
                             , difficultySelect model
-                            , spacer 3
+                            , handednessSelect model
+                            , spacer 2
                             , goButton
                             , copyrightNotice
+                            , spacer 1
                             ]
 
                 Question ->
                     column Default
                         [ height fill, width fill, verticalSpread ]
-                        [ viewQuestion mode currentLetter
+                        [ viewQuestion handedness mode currentLetter
                         , viewAnswers model
                         , homeButton
                         ]
@@ -382,7 +395,7 @@ view ({ currentLetter, choices, state, counter, mode, correct, answered, game, t
                 Result ->
                     column Default
                         [ height fill, width fill, verticalSpread ]
-                        [ viewQuestion mode currentLetter
+                        [ viewQuestion handedness mode currentLetter
                         , viewResult model
                         , homeButton
                         ]
@@ -449,39 +462,112 @@ toggleButton accessor value msg label model =
 
 modeSelect : Model -> Elem
 modeSelect model =
-    el Default [ width fill ] <|
-        row Default
-            [ width fill ]
-            [ toggleButton .mode RecognizeSign SetMode "Reconnaître" model
-            , toggleButton .mode SelectSign SetMode "Trouver" model
-            ]
+    let
+        hint =
+            case model.mode of
+                RecognizeSign ->
+                    "Reconnaître la lettre qui correspond au signe."
+
+                SelectSign ->
+                    "Trouver le signe qui correspond à la lettre."
+    in
+        el Default [ width fill ] <|
+            column Default
+                [ spacingXY 0 5 ]
+                [ el Default [] <|
+                    row Default
+                        [ width fill ]
+                        [ toggleButton .mode RecognizeSign SetMode "Reconnaître" model
+                        , toggleButton .mode SelectSign SetMode "Trouver" model
+                        ]
+                , el Default [ vary Secondary True, vary Optional True ] <| text hint
+                ]
 
 
 gameSelect : Model -> Elem
 gameSelect model =
-    el Default [ width fill ] <|
-        row Default
-            [ width fill ]
-            [ toggleButton .game Training SetGame "Entraînement" model
-            , toggleButton .game Challenge SetGame "Jeu" model
-            ]
+    let
+        hint =
+            case model.game of
+                Training ->
+                    "Chaque lettre de l'alphabet, dans le désordre."
+
+                Challenge ->
+                    "Dix lettres au hasard."
+    in
+        el Default [ width fill ] <|
+            column Default
+                [ spacingXY 0 5 ]
+                [ el Default [] <|
+                    row Default
+                        [ width fill ]
+                        [ toggleButton .game Training SetGame "Entraînement" model
+                        , toggleButton .game Challenge SetGame "Jeu" model
+                        ]
+                , el Default [ vary Secondary True, vary Optional True ] <| text hint
+                ]
 
 
 difficultySelect : Model -> Elem
 difficultySelect model =
     let
-        h =
-            if model.game == Training then
-                [ inlineStyle [ ( "visibility", "hidden" ) ] ]
-            else
-                []
+        hintTimer =
+            case model.game of
+                Training ->
+                    "Sans limite de temps."
+
+                Challenge ->
+                    "Avec limite de temps."
+
+        hintChoices =
+            case model.difficulty of
+                Easy ->
+                    "Deux propositions."
+
+                Medium ->
+                    "Quatre propositions."
+
+                Hard ->
+                    "Six propositions."
+
+        hint =
+            hintChoices ++ " " ++ hintTimer
     in
-        el Default (h ++ [ width fill ]) <|
-            row Default
-                [ width fill ]
-                [ toggleButtonWithVars [ vary Optional True ] .difficulty Easy SetDifficulty "Facile" model
-                , toggleButtonWithVars [ vary Optional True ] .difficulty Medium SetDifficulty "Moyen" model
-                , toggleButtonWithVars [ vary Optional True ] .difficulty Hard SetDifficulty "Difficile" model
+        el Default [ width fill ] <|
+            column Default
+                [ spacingXY 0 5 ]
+                [ el Default [] <|
+                    row Default
+                        [ width fill ]
+                        [ toggleButtonWithVars [ vary Optional True ] .difficulty Easy SetDifficulty "Facile" model
+                        , toggleButtonWithVars [ vary Optional True ] .difficulty Medium SetDifficulty "Moyen" model
+                        , toggleButtonWithVars [ vary Optional True ] .difficulty Hard SetDifficulty "Difficile" model
+                        ]
+                , el Default [ vary Secondary True, vary Optional True ] <| text hint
+                ]
+
+
+handednessSelect : Model -> Elem
+handednessSelect model =
+    let
+        hint =
+            case model.handedness of
+                Righty ->
+                    "Les signes sont faits par un droitier."
+
+                Lefty ->
+                    "Les signes sont faits par un gaucher."
+    in
+        el Default [ width fill ] <|
+            column Default
+                [ spacingXY 0 5 ]
+                [ el Default [] <|
+                    row Default
+                        [ width fill ]
+                        [ toggleButtonWithVars [ vary Optional True ] .handedness Lefty SetHandedness "Gaucher" model
+                        , toggleButtonWithVars [ vary Optional True ] .handedness Righty SetHandedness "Droitier" model
+                        ]
+                , el Default [ vary Secondary True, vary Optional True ] <| text hint
                 ]
 
 
@@ -512,7 +598,7 @@ progressBar difficulty counter =
 
 
 viewResult : Model -> Elem
-viewResult { result, currentLetter, mode, difficulty } =
+viewResult { result, currentLetter, mode, difficulty, handedness } =
     case result of
         NotAnswered ->
             empty
@@ -537,7 +623,7 @@ viewResult { result, currentLetter, mode, difficulty } =
                     column Default
                         [ height fill, verticalSpread, width fill ]
                         [ el Default [ height <| px <| defSize + 10 ] <|
-                            viewAnswer mode currentLetter
+                            viewAnswer handedness mode currentLetter
                         , el Default [ vary Secondary True, center ] <|
                             text comment
                         , button Button
@@ -550,24 +636,24 @@ viewResult { result, currentLetter, mode, difficulty } =
                         ]
 
 
-viewQuestion : Mode -> Letter -> Elem
-viewQuestion mode =
+viewQuestion : Handedness -> Mode -> Letter -> Elem
+viewQuestion handedness mode =
     case mode of
         RecognizeSign ->
-            imageForLetter
+            imageForLetter handedness
 
         SelectSign ->
             characterForLetter
 
 
-viewAnswer : Mode -> Letter -> Elem
-viewAnswer mode =
+viewAnswer : Handedness -> Mode -> Letter -> Elem
+viewAnswer handedness mode =
     case mode of
         RecognizeSign ->
             characterForLetter
 
         SelectSign ->
-            imageForLetter
+            imageForLetter handedness
 
 
 characterForLetter : Letter -> Elem
@@ -576,33 +662,37 @@ characterForLetter { name, description } =
         text name
 
 
-imageForLetter : Letter -> Elem
-imageForLetter { sign, description } =
+imageForLetter : Handedness -> Letter -> Elem
+imageForLetter handedness { sign, description } =
     el Default [ vary White True, height fill, width fill ] <|
         el Default [ center, verticalCenter ] <|
-            image Default [ height (px defSize) ] { src = sign, caption = description }
+            image Default
+                [ height (px defSize)
+                , handednessOrientation handedness
+                ]
+                { src = sign, caption = description }
 
 
 viewAnswers : Model -> Elem
-viewAnswers { mode, choices, difficulty, counter } =
+viewAnswers { mode, choices, difficulty, counter, handedness } =
     el Default [ center, width fill ] <|
         column Default
             [ height fill, width fill ]
             [ progressBar difficulty counter
-            , answers difficulty mode choices
+            , answers handedness difficulty mode choices
             ]
 
 
-answers : Difficulty -> Mode -> List String -> Elem
-answers difficulty mode choices =
+answers : Handedness -> Difficulty -> Mode -> List String -> Elem
+answers handedness difficulty mode choices =
     el Default [ center, width fill ] <|
         EK.wrappedRow Default [ alignBottom, width fill ] <|
-            List.indexedMap (viewChoice difficulty mode) <|
+            List.indexedMap (viewChoice handedness difficulty mode) <|
                 choices
 
 
-viewChoice : Difficulty -> Mode -> Int -> String -> ( String, Elem )
-viewChoice difficulty mode index choice =
+viewChoice : Handedness -> Difficulty -> Mode -> Int -> String -> ( String, Elem )
+viewChoice handedness difficulty mode index choice =
     case mode of
         RecognizeSign ->
             choice
@@ -629,6 +719,7 @@ viewChoice difficulty mode index choice =
                             [ center
                             , verticalCenter
                             , height (px (sizeForDifficulty difficulty))
+                            , handednessOrientation handedness
                             ]
                             { src = sign, caption = description }
                    )
@@ -643,6 +734,19 @@ viewChoice difficulty mode index choice =
                     , vary Bottom (index > 1)
                     ]
                 |> (,) choice
+
+
+handednessOrientation : Handedness -> Attribute variations msg
+handednessOrientation handedness =
+    inlineStyle
+        [ ( "transform"
+          , "scaleX("
+                ++ if handedness == Righty then
+                    "1"
+                   else
+                    "-1" ++ ")"
+          )
+        ]
 
 
 init : ( Model, Cmd Msg )
@@ -663,6 +767,7 @@ init =
       , counter = 0
       , difficulty = Medium
       , game = Challenge
+      , handedness = Righty
       }
     , getNow
     )
@@ -779,6 +884,7 @@ stylesheet =
                 , SC.text raven
                 ]
             , variation Secondary [ SC.text lighterDaisy ]
+            , variation Optional [ Font.size (scaled 1) ]
             ]
         , style Main
             [ Font.size (scaled 3)

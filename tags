@@ -52,12 +52,14 @@ FilterValue	src/elm/Data/Filters.elm	/^type alias FilterValue =$/;"	a
 Font	src/elm/Main.elm	/^import Style.Font as Font$/;"	n
 Game	src/elm/Main.elm	/^type Game$/;"	t
 GoHome	src/elm/Main.elm	/^    | GoHome$/;"	c	type:Msg
+Handedness	src/elm/Main.elm	/^type Handedness$/;"	t
 Hard	src/elm/Main.elm	/^    | Hard$/;"	c	type:Difficulty
 Home	src/elm/Main.elm	/^    = Home$/;"	c	type:State
 Incorrect	src/elm/Main.elm	/^    | Incorrect$/;"	c	type:Result
 Jumbo	src/elm/Main.elm	/^    | Jumbo$/;"	c	type:Styles
 Larger	src/elm/Main.elm	/^    | Larger$/;"	c	type:Variations
 Left	src/elm/Main.elm	/^    | Left$/;"	c	type:Variations
+Lefty	src/elm/Main.elm	/^    = Lefty$/;"	c	type:Handedness
 Letter	src/elm/Main.elm	/^type alias Letter =$/;"	a
 Letters	src/elm/Main.elm	/^type alias Letters =$/;"	a
 Main	src/Main.elm	/^module Main exposing (..)$/;"	m
@@ -93,6 +95,7 @@ Responsibility	src/elm/Data/Order.elm	/^type Responsibility$/;"	t
 Result	src/elm/Main.elm	/^    | Result$/;"	c	type:State
 Result	src/elm/Main.elm	/^type Result$/;"	t
 Right	src/elm/Main.elm	/^    | Right$/;"	c	type:Variations
+Righty	src/elm/Main.elm	/^    | Righty$/;"	c	type:Handedness
 SC	src/elm/Main.elm	/^import Style.Color as SC$/;"	n
 SF	src/elm/Main.elm	/^import Style.Filter as SF$/;"	n
 Scale	src/elm/Main.elm	/^import Style.Scale as Scale$/;"	n
@@ -102,6 +105,7 @@ SelectSign	src/elm/Main.elm	/^    | SelectSign$/;"	c	type:Mode
 SelectedFilter	src/elm/Data/Filters.elm	/^type alias SelectedFilter =$/;"	a
 SetDifficulty Difficulty	src/elm/Main.elm	/^    | SetDifficulty Difficulty$/;"	c	type:Msg
 SetGame Game	src/elm/Main.elm	/^    | SetGame Game$/;"	c	type:Msg
+SetHandedness Handedness	src/elm/Main.elm	/^    | SetHandedness Handedness$/;"	c	type:Msg
 SetMode Mode	src/elm/Main.elm	/^    | SetMode Mode$/;"	c	type:Msg
 Smaller	src/elm/Main.elm	/^    = Smaller$/;"	c	type:Variations
 Smallest	src/elm/Main.elm	/^    | Smallest$/;"	c	type:Variations
@@ -126,7 +130,7 @@ actionsColumn	src/elm/Views/Organizer.elm	/^actionsColumn : String -> Config msg
 answer	src/elm/Main.elm	/^                answer =$/;"	f	function:update
 answered	src/elm/Main.elm	/^                        answered =$/;"	f	function:update
 answered	src/elm/Main.elm	/^                answered =$/;"	f	function:update
-answers	src/elm/Main.elm	/^answers difficulty mode choices =$/;"	f
+answers	src/elm/Main.elm	/^answers handedness difficulty mode choices =$/;"	f
 author	node_modules/elm-assets-loader/package.json	/^  "author": "Marica Odagaki <marica@noredink.com>",$/;"	s
 author	package.json	/^  "author": "Augustin Ragon",$/;"	s
 ava	node_modules/elm-assets-loader/package.json	/^    "ava": "^0.19.0",$/;"	s	object:devDependencies
@@ -218,11 +222,18 @@ getNow	src/elm/Main.elm	/^getNow =$/;"	f
 glob	package.json	/^    "glob": "^5.0.14",$/;"	s	object:devDependencies
 goBackLink	src/elm/Utils.elm	/^goBackLink : msg -> Html msg$/;"	f
 goButton	src/elm/Main.elm	/^goButton =$/;"	f
-h	src/elm/Main.elm	/^        h =$/;"	f	function:difficultySelect
+handednessOrientation	src/elm/Main.elm	/^handednessOrientation handedness =$/;"	f
+handednessSelect	src/elm/Main.elm	/^handednessSelect model =$/;"	f
+hint	src/elm/Main.elm	/^        hint =$/;"	f	function:difficultySelect
+hint	src/elm/Main.elm	/^        hint =$/;"	f	function:gameSelect
+hint	src/elm/Main.elm	/^        hint =$/;"	f	function:handednessSelect
+hint	src/elm/Main.elm	/^        hint =$/;"	f	function:modeSelect
+hintChoices	src/elm/Main.elm	/^        hintChoices =$/;"	f	function:difficultySelect
+hintTimer	src/elm/Main.elm	/^        hintTimer =$/;"	f	function:difficultySelect
 homeButton	src/elm/Main.elm	/^homeButton =$/;"	f
 homepage	node_modules/elm-assets-loader/package.json	/^  "homepage": "https:\/\/github.com\/NoRedInk\/elm-assets-loader#readme",$/;"	s
 html-webpack-plugin	package.json	/^    "html-webpack-plugin": "^2.17.0",$/;"	s	object:devDependencies
-imageForLetter	src/elm/Main.elm	/^imageForLetter { sign, description } =$/;"	f
+imageForLetter	src/elm/Main.elm	/^imageForLetter handedness { sign, description } =$/;"	f
 index.html	dist/index.html	1;"	F
 index.html	src/static/index.html	1;"	F
 index.js	node_modules/elm-assets-loader/index.js	1;"	F
@@ -347,11 +358,11 @@ url-loader	package.json	/^    "url-loader": "^0.6.2",$/;"	s	object:devDependenci
 version	elm-package.json	/^    "version": "1.0.0",$/;"	s
 version	node_modules/elm-assets-loader/package.json	/^  "version": "0.3.0",$/;"	s
 version	package.json	/^  "version": "0.0.1",$/;"	s
-view	src/elm/Main.elm	/^view ({ currentLetter, choices, state, counter, mode, correct, answered, game, timeTaken } as mo/;"	f
+view	src/elm/Main.elm	/^view ({ currentLetter, choices, state, counter, mode, correct, answered, game, timeTaken, handed/;"	f
 view	src/elm/Views/Event.elm	/^view : Config msg -> Table.State -> Events -> Html msg$/;"	f
-viewAnswer	src/elm/Main.elm	/^viewAnswer mode =$/;"	f
-viewAnswers	src/elm/Main.elm	/^viewAnswers { mode, choices, difficulty, counter } =$/;"	f
-viewChoice	src/elm/Main.elm	/^viewChoice difficulty mode index choice =$/;"	f
+viewAnswer	src/elm/Main.elm	/^viewAnswer handedness mode =$/;"	f
+viewAnswers	src/elm/Main.elm	/^viewAnswers { mode, choices, difficulty, counter, handedness } =$/;"	f
+viewChoice	src/elm/Main.elm	/^viewChoice handedness difficulty mode index choice =$/;"	f
 viewCollected	src/elm/Views/EventBill.elm	/^viewCollected : EventBill -> Html msg$/;"	f
 viewCommission	src/elm/Views/EventBill.elm	/^viewCommission : EventBill -> Html msg$/;"	f
 viewDetails	src/elm/Views/EventBill.elm	/^viewDetails : EventBill -> Html msg$/;"	f
@@ -364,8 +375,8 @@ viewOrdersTable	src/elm/Views/Order.elm	/^viewOrdersTable : Config msg -> Table.
 viewOrganizer	src/elm/Views/Organizer.elm	/^viewOrganizer : Config msg -> Organizer -> Html msg$/;"	f
 viewOrganizers	src/elm/Views/Organizer.elm	/^viewOrganizers : Config msg -> Table.State -> Organizers -> Html msg$/;"	f
 viewOtherServices	src/elm/Views/EventBill.elm	/^viewOtherServices : EventBill -> Html msg$/;"	f
-viewQuestion	src/elm/Main.elm	/^viewQuestion mode =$/;"	f
-viewResult	src/elm/Main.elm	/^viewResult { result, currentLetter, mode, difficulty } =$/;"	f
+viewQuestion	src/elm/Main.elm	/^viewQuestion handedness mode =$/;"	f
+viewResult	src/elm/Main.elm	/^viewResult { result, currentLetter, mode, difficulty, handedness } =$/;"	f
 viewSummary	src/elm/Views/EventBill.elm	/^viewSummary : EventBill -> Html msg$/;"	f
 warnBalance	src/elm/Views/Event.elm	/^warnBalance : Event -> String$/;"	f
 webpack	node_modules/elm-assets-loader/package.json	/^    "webpack": ">=1.13.3 <4.0.0"$/;"	s	object:peerDependencies
